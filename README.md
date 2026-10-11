@@ -50,28 +50,26 @@
 
 ---
 
-## 📦 安装与配置 (Installation)
+## 📦 跨平台通用安装指南 (Universal Installation)
 
-### 方式 A：在 Google Antigravity 中安装 (全局生效)
+本引擎采用纯标准 Markdown + 零依赖 Python 构建，**无任何专有黑盒绑定**，可无缝运行在市面所有主流 AI Agent 工具中：
 
-将本仓库克隆或复制到 Antigravity 全局技能目录：
+| 工具平台 (Tool) | 放置路径与生效方式 | 驱动模型 |
+| :--- | :--- | :--- |
+| **Google Antigravity** | 克隆至 `~/.gemini/config/skills/craft-ui/` 或 `.agent/skills/` | Gemini 2.5/3 Pro/Flash |
+| **Claude Code (Anthropic)** | 软链接至 `CLAUDE.md` 或 `.claude/skills/craft-ui/` | Claude 3.7 Sonnet |
+| **Cursor** | 复制为项目根目录 `.cursorrules` 或 `.cursor/rules/craft.mdc` | Claude / GPT-4o / Codex |
+| **Windsurf** | 复制为项目根目录 `.windsurfrules` | Cascade / Claude |
+| **GitHub Copilot** | 复制为 `.github/copilot-instructions.md` | OpenAI o3 / Codex / GPT-4o |
+| **Aider / CLI 工具** | 直接作为规范加载：`aider --read SKILL.md` | 任意本地/云端 LLM |
+
+### 快速一键拉取：
 
 ```bash
-# 复制到全局技能路径
-git clone https://github.com/Jaxson-zip/agentic-craft-ui.git ~/.gemini/config/skills/craft-ui
-```
+# 1. 克隆本仓库到你的开发环境
+git clone https://github.com/Jaxson-zip/agentic-craft-ui.git
 
-### 方式 B：在单个项目中使用 (Cursor / Claude Code / Antigravity)
-
-直接将 `SKILL.md` 放入你的项目：
-
-```bash
-# Antigravity 项目级
-mkdir -p .agent/skills/craft-ui
-cp SKILL.md .agent/skills/craft-ui/
-
-# 或者直接作为 Cursor Rules / GEMINI.md
-cp SKILL.md GEMINI.md
+# 2. 无论用什么工具，直接建立对应链接即可全局生效！
 ```
 
 ---
