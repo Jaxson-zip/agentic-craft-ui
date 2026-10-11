@@ -12,9 +12,14 @@ description: OPC (One-Person Company 一人公司) 全栈研发引擎旗舰版�
 
 ## 🔀 双模引擎分流 (Dual-Mode Engine)
 
-在项目启动第一秒，根据需求类型自动匹配工作模式：
-* **模式 A: 商业产品模式 (UI-First，默认)**：针对 SaaS、Web 平台、移动 App。先交付 Apple 交互原型，创始人视觉审批后再建架构。
-* **模式 B: 极客逻辑模式 (Logic-First)**：针对纯后端、CLI 工具、高并发爬虫、算法模块。跳过 UI 原型，直接从 Zod 契约与核心算法开工。
+在项目启动第一秒，根据需求类型与项目状态自动匹配工作模式：
+* **模式 A: 商业产品模式 (UI-First，新项目默认)**：针对从零起步的 SaaS、Web 平台、移动 App。先交付 Apple 交互原型，创始人视觉审批后再建架构。
+* **模式 B: 极客逻辑模式 (Logic-First)**：针对纯后端、CLI 工具、高并发爬虫、算法模块。跳过 UI 原型，直接从契约与核心算法开工。
+* **模式 C: 老项目接盘与重构模式 (Brownfield Mode，已有项目重构)**：
+  1. **技术栈自适应嗅探 (Stack Sniffer)**：首先检测现有 `package.json` 或环境，识别既有框架（Vue/React/Nuxt）、Linter（ESLint/Biome）、样式库。**严禁强行引入与现有项目冲突的异构技术栈**！
+  2. **逆向架构建模 (Reverse Engineering)**：通过 `repo_map.py` 提取现有路由与导出符号，在 3 秒内逆向输出 3 张现状 Mermaid 架构图。
+  3. **架构快照缓存 (Snapshot Caching)**：将逆向结果持久化固化为 `docs/ARCHITECTURE.md` 与 `docs/REPO_MAP.md`。**后续所有会话与子 Agent 100% 只读此快照文件，严禁重复扫描全盘代码，杜绝 Token 浪费！**
+  4. **绞杀者重构 (Strangler Fig)**：在老代码旁立起局部新契约，定向微创手术，平滑替换旧模块。
 
 ---
 
