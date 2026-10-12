@@ -2,7 +2,7 @@
 
 面向独立开发者的产品原型、全栈功能和已有应用改造工作流。帮助 Agent 把用户路径、契约、实现和验收串起来，减少架构漂移与无效上下文加载。
 
-它由 Agent Skills 格式的指令、按需参考和一个 Python 标准库脚本组成。流程由宿主 Agent 执行；本仓库没有后台调度服务、文件权限执行器或自动部署系统。
+它由 Agent Skills 格式的指令、按需参考、可选视觉资源和一个 Python 标准库脚本组成。流程由宿主 Agent 执行；本仓库没有后台调度服务、文件权限执行器或自动部署系统。
 
 ## 适用场景
 
@@ -30,9 +30,14 @@ agentic-craft-ui/
 ├── SKILL.md
 ├── references/
 │   ├── ui.md
+│   ├── discovery.md
+│   ├── visual-presets.md
 │   ├── architecture-context.md
 │   ├── collaboration.md
 │   └── delivery.md
+├── assets/
+│   ├── themes.css
+│   └── theme-preview.html
 ├── scripts/repo_map.py
 ├── tests/
 └── docs/
@@ -40,7 +45,7 @@ agentic-craft-ui/
 
 ## 安装与使用
 
-完整保留 `SKILL.md`、`references/` 与 `scripts/` 的相对结构。只复制主文件会丢失按需参考和工具。Skill 使用 [Agent Skills 标准](https://agentskills.io/specification)；各宿主的发现路径、工具权限与子 Agent 能力仍有差异。
+运行 skill 时完整保留 `SKILL.md`、`references/`、`assets/` 与 `scripts/` 的相对结构。只复制主文件会丢失参考、视觉资源和工具；维护预设时还需 `tests/`，完整克隆或交付包均包含它。Skill 使用 [Agent Skills 标准](https://agentskills.io/specification)；各宿主的发现路径、工具权限与子 Agent 能力仍有差异。
 
 ### Codex
 
@@ -74,6 +79,12 @@ Windows PowerShell 个人安装：
 用 agentic-craft-ui 做一个个人订阅管理看板。先验证添加订阅、查看到期日和取消订阅的交互，再接真实数据。
 ```
 
+## 视觉资源与复用决策
+
+可选 [配色预设](references/visual-presets.md) 提供清透浅色与冷黑深色的语义变量，含按钮前景色、状态标签与焦点色；[本地预览](assets/theme-preview.html) 不依赖网络或安装包。通过数值检查的配对不能替代实际界面验收。已有品牌、暖色阅读产品、专业侧栏布局仍按用户与任务选择，不强制蓝白、920px、双主题或固定数量的审批。
+
+新产品选型和确有复用价值的任务按 [生态调研](references/discovery.md) 判断许可证、适配与维护成本；小改动、已定路线和离线任务可以直接推进。没有检索能力时如实标注，不声称已经查遍开源生态。
+
 ## 轻量符号地图
 
 需 Python 3.9+，无 pip 依赖。从应用根目录运行；以下以 skill 安装在 `.agents/skills/agentic-craft-ui` 为例：
@@ -101,9 +112,11 @@ python scripts/repo_map.py --help
 git diff --check
 ```
 
-测试使用临时项目验证索引与快照行为。行为场景与结果见 [验证记录](docs/VALIDATION.md)；离线决策评估不等于实际产品端到端测试或跨模型基准。
+测试使用临时项目验证索引与快照行为，并检查实际发货 CSS 的文字、状态、按钮与焦点配色。行为场景与结果见 [验证记录](docs/VALIDATION.md)；离线决策评估不等于实际产品端到端测试或跨模型基准。
 
 另在 Codex 中完成了 [订阅管理真实项目实验](docs/REAL_PROJECT_VALIDATION.md)：原型、HTTP + SQLite、30 天需求变更、生产路径与独立审查。记录包含截图、实际检查和未验证范围；没有证明跨平台运行或模型能力提升。
+
+本轮完善相对 Gemini 更新 `49b427f` 的内容、独立场景评估和具体限制见 [第二轮验证](docs/REFINEMENT_ROUND2.md)。历史记录保留各自基线，不自动代表当前版本通过。
 
 ## License
 

@@ -1,0 +1,71 @@
+/* Optional presets. Adapt to the existing design system; no global reset. */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --bg-page: #F6F8FA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFA;
+  --bg-muted: #F2F3F5;
+  --border-subtle: #E5E6EB;
+  --border-strong: #667085;
+  --text-primary: #1D2129;
+  --text-secondary: #4E5969;
+  --text-muted: #626B7C;
+  --brand-primary: #165DFF;
+  --brand-primary-hover: #0E42D2;
+  --brand-primary-active: #0034B5;
+  --on-brand: #FFFFFF;
+  --focus-ring: #165DFF;
+  --badge-success-bg: #E8FFEA;
+  --badge-success-text: #16723A;
+  --badge-warning-bg: #FFF7E8;
+  --badge-warning-text: #925100;
+  --badge-danger-bg: #FFEAE8;
+  --badge-danger-text: #B42318;
+  --badge-neutral-bg: #F2F3F5;
+  --badge-neutral-text: #4E5969;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-page: #090A0F;
+  --bg-card: #14161F;
+  --bg-card-hover: #1A1D28;
+  --bg-muted: #1D202B;
+  --border-subtle: #323747;
+  --border-strong: #A6ADB9;
+  --text-primary: #F2F3F5;
+  --text-secondary: #B4BDCB;
+  --text-muted: #A6ADB9;
+  --brand-primary: #93C5FD;
+  --brand-primary-hover: #BFDBFE;
+  --brand-primary-active: #60A5FA;
+  --on-brand: #0B1220;
+  --focus-ring: #93C5FD;
+  --badge-success-bg: #123321;
+  --badge-success-text: #86EFAC;
+  --badge-warning-bg: #392A12;
+  --badge-warning-text: #FCD34D;
+  --badge-danger-bg: #3D1A21;
+  --badge-danger-text: #FDA4AF;
+  --badge-neutral-bg: #252833;
+  --badge-neutral-text: #CBD5E1;
+}
+
+.craft-surface { background: var(--bg-card); color: var(--text-primary); }
+.craft-action {
+  background: var(--brand-primary);
+  color: var(--on-brand);
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  min-height: 44px;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 120ms ease-out;
+}
+.craft-action:hover { background: var(--brand-primary-hover); }
+.craft-action:active { background: var(--brand-primary-active); }
+.craft-action:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .craft-action { transition: none; }
+}
