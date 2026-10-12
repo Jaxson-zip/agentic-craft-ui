@@ -1,107 +1,108 @@
-# 🚀 Agentic Craft UI (`agentic-craft-ui`)
+# Agentic Craft UI
 
-> **OPC (One-Person Company 一人公司) 终极全栈研发架构与防漂移引擎**  
-> 将混乱的 Vibe-coding 升级为确定性的工业级流水线：**UI 原型先行 ➔ 三合一 Mermaid 架构 ➔ 代码骨架拓扑树 (省 90% Token) ➔ 多 Agent 领地隔离 ➔ 真实 HTTP 自主联调**。
+面向独立开发者的产品原型、全栈功能和已有应用改造工作流。帮助 Agent 把用户路径、契约、实现和验收串起来，减少架构漂移与无效上下文加载。
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Awesome](https://img.shields.io/badge/AI-Agentic%20Engine-purple.svg)](SKILL.md)
-[![Platform](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Cursor%20%7C%20Claude%20Code-orange.svg)](README.md)
+它由 Agent Skills 格式的指令、按需参考和一个 Python 标准库脚本组成。流程由宿主 Agent 执行；本仓库没有后台调度服务、文件权限执行器或自动部署系统。
 
----
+## 适用场景
 
-## 💡 为什么需要这个 Skill？
+| 场景 | 入口 |
+| --- | --- |
+| 新产品、较大交互变化 | UI-First：先验证可点击原型，逐步落实契约和真实数据 |
+| 纯后端、CLI、算法 | Logic-First：输入输出、错误和核心行为先行 |
+| 已有应用改造 | Brownfield：复用既有栈，定向定位，渐进替换 |
+| 小修复 | 精简路径，跳过完整原型、架构图和团队设置 |
 
-传统的 Vibe-coding 在写中大型项目时常常陷入三大噩梦：
-1. **视觉是答辩**：大紫大蓝渐变、圆滚滚的胶囊卡片、泛滥的系统 Emoji，充满廉价 AI 味。
-2. **架构严重漂移**：聊到第 15 轮，AI 开始胡乱建目录，前后端接口字段对不上，一改就崩。
-3. **长上下文失忆与 Token 爆炸**：修个小 Bug 就要全盘读取上万行代码，烧穿上下文，导致严重脑雾。
+默认候选视觉方向为 Apple Minimal，也可采用 Linear Dark、Clean Tech 或用户既有设计系统。不会因预设自动引入动画库、样式库或框架。
 
-**`agentic-craft-ui` 就是为此而生的终极工程解法。**
+## 有什么改进
 
----
+- 主 `SKILL.md` 保留分流和决策规则；UI、架构、协作、验收细则按需加载。
+- 架构快照有范围、依据和更新规则，源码变化时重新核对；不要求永久相信旧地图。
+- 采用项目现有包管理器与检查命令，不统一强制 Biome、Zod、TypeScript 或 npm。
+- 多 Agent 按任务独立性与宿主能力选择，写入范围是协作约定，实际隔离取决于宿主工具。
+- 验收区分静态检查、运行时契约、业务结果、真实 UI 和生产构建；保留失败与受阻项。
 
-## 🌟 核心特性 (Key Features)
-
-### 1. 🎨 UI 交互原型先行 (UI-First Prototyping)
-- **告别冰冷建表**：拒绝传统的“先写 SQL -> 搞后端 -> 最后画前端”的瀑布流。
-- **5 分钟摸到界面**：先用极富真实感的 Mock 数据和 **Apple HIG 极简质感**（柔和毛玻璃、连续平滑圆角、Framer Motion 弹性物理阻尼）做出可点击原型。
-- **逆向推导**：原型经由创始人满意后，再从界面逆向导出后端的 **Zod 契约** 与数据库结构。
-
-### 2. 🔄 老项目接盘重构与自适应嗅探 (Brownfield Refactoring)
-- **环境自适应感知 (Stack Sniffer)**：进入已有项目时，自动嗅探现有技术栈（Vue/React/Nuxt/Vite/ESLint），**绝不强塞冲突异构依赖**。
-- **绞杀者重构 (Strangler Fig)**：定向微创手术，局部立契约，平滑替换旧模块，杜绝推翻重写的灾难。
-
-### 3. 🗺️ 三合一 Mermaid 架构图谱与快照缓存 (Snapshot Caching)
-- **现状逆向出图**：面对几万行老项目，通过 `repo_map.py` 逆向提取路由与导出，3 秒内自动画出 C4 分层图、时序图、ER 实体关系图。
-- **架构快照持久化 (零 Token 浪费)**：生成的架构图固化为 `docs/ARCHITECTURE.md` 快照，**后续 100 次迭代全员只读此快照，彻底消灭全盘重复扫描！**
-
-### 3. ⚡ AST 代码骨架拓扑树 (`repo_map.py`) —— 省 90% Token
-- 灵感源自 Aider 的 Repo Map 思想。
-- 重构与修 Bug 时，**严禁无脑全盘扫描**。通过内置的 `scripts/repo_map.py` 提取函数签名与类型导出，将万行代码压缩为 100 行骨架树。
-- **定向微创手术**：精准锁定受影响的 1~2 个文件，单次上下文消耗从 80k Token 降至 3k Token，彻底根除漂移！
-
-### 4. 👥 异构多 Agent 协同与“领地锁死” (Write Scope)
-- 调度本地的 **Claude CLI**（专攻深度逻辑）、**Gemini**（专攻视觉与多模态）或 **Codex**。
-- **领地隔离机制**：为每个模型划定唯一的 `Write Scope`（只能改这几个文件）与 `Read-Only` 依赖。
-- 允许修改的文件交集严格为零，彻底消灭 AI 相互覆盖和代码冲突！
-
-### 5. 🛠️ 幕后全自动联调与真实验活 (Joint Debugging)
-- **机械压路机**：自动执行 `npx @biomejs/biome check --write`，毫秒级碾平代码风格差异。
-- **静态安全**：自动执行 `npx tsc --noEmit`，确保前后端 100% 遵守同一份 Zod 契约。
-- **真实验活**：在后台启动服务并模拟 `curl` 请求，确保拿到 `HTTP 200` 且 JSON 格式正确才算交付。
-
-### 6. 🛡️ 工业级生产防线：终结“纯 Vibe 缺陷” (Production Guardrails)
-- **证据链调试法则**：Bug 严禁盲改，必须先写 15 行最小独立复现脚本抓物理证据，跑绿才算修复。
-- **不可变量物理守恒**：资金、多租户隔离、非负状态由全局中间件死死卡死，违背即物理熔断。
-- **安全外包与边缘防刷**：付费/LLM 路由强制前置 Cloudflare/Upstash 边缘限流（防被刷爆账单），数据库强制 RLS 默认隔离。
-- **三需求节律重构**：每做 3~4 个功能强制执行清扫冲刺，算钱算状态的核心逻辑彻底纯函数化。
-- **生产构建一票否决**：严禁以 dev 模式交付，必须通过 `npm run build` 生产级打包，排查线上暗坑。
-
----
-
-## 📦 跨平台通用安装指南 (Universal Installation)
-
-本引擎采用纯标准 Markdown + 零依赖 Python 构建，**无任何专有黑盒绑定**，可无缝运行在市面所有主流 AI Agent 工具中：
-
-| 工具平台 (Tool) | 放置路径与生效方式 | 驱动模型 |
-| :--- | :--- | :--- |
-| **Google Antigravity** | 克隆至 `~/.gemini/config/skills/craft-ui/` 或 `.agent/skills/` | Gemini 2.5/3 Pro/Flash |
-| **Claude Code (Anthropic)** | 软链接至 `CLAUDE.md` 或 `.claude/skills/craft-ui/` | Claude 3.7 Sonnet |
-| **Cursor** | 复制为项目根目录 `.cursorrules` 或 `.cursor/rules/craft.mdc` | Claude / GPT-4o / Codex |
-| **Windsurf** | 复制为项目根目录 `.windsurfrules` | Cascade / Claude |
-| **GitHub Copilot** | 复制为 `.github/copilot-instructions.md` | OpenAI o3 / Codex / GPT-4o |
-| **Aider / CLI 工具** | 直接作为规范加载：`aider --read SKILL.md` | 任意本地/云端 LLM |
-
-### 快速一键拉取：
-
-```bash
-# 1. 克隆本仓库到你的开发环境
-git clone https://github.com/Jaxson-zip/agentic-craft-ui.git
-
-# 2. 无论用什么工具，直接建立对应链接即可全局生效！
-```
-
----
-
-## 🎯 使用方法 (Usage)
-
-在聊天窗口中，以创始人的口吻直接发号施令：
+## 目录
 
 ```text
-"用 agentic-craft-ui 帮我规划一个「个人财务与订阅管理看板」的全栈系统。"
+agentic-craft-ui/
+├── SKILL.md
+├── references/
+│   ├── ui.md
+│   ├── architecture-context.md
+│   ├── collaboration.md
+│   └── delivery.md
+├── scripts/repo_map.py
+├── tests/
+└── docs/
 ```
 
-### 你的工作流程只有极其爽快的 3 步：
+## 安装与使用
 
-1. **第 1 步：看原型拍板**  
-   AI 团队 5 分钟内为你输出 Apple 极简风的前端原型。你肉眼看效果，满意后输入：*“原型通过，开工”*。
-2. **第 2 步：自动排期与自治开发**  
-   AI 团队自动生成 `docs/ROADMAP.md` 排期表，把 Zod 契约锁死，前端部与后端部在各自独立分支/领地内闭关开发。
-3. **第 3 步：幕后联调完工交差**  
-   AI 在后台自动拔掉 Mock 接上真实 API，排查 500 报错并完成修复，向你交付开箱即用的完整商业功能！
+完整保留 `SKILL.md`、`references/` 与 `scripts/` 的相对结构。只复制主文件会丢失按需参考和工具。Skill 使用 [Agent Skills 标准](https://agentskills.io/specification)；各宿主的发现路径、工具权限与子 Agent 能力仍有差异。
 
----
+### Codex
 
-## 📄 开源许可证 (License)
+本地可放在项目 `.agents/skills/agentic-craft-ui/` 或用户 `~/.agents/skills/agentic-craft-ui/`。路径与加载机制参见 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills)。
 
-本项目采用 [MIT 许可证](LICENSE)。
+macOS / Linux 个人安装：
+
+```bash
+ git clone https://github.com/Jaxson-zip/agentic-craft-ui.git ~/.agents/skills/agentic-craft-ui
+```
+
+Windows PowerShell 个人安装：
+
+```powershell
+ git clone https://github.com/Jaxson-zip/agentic-craft-ui.git "$env:USERPROFILE\.agents\skills\agentic-craft-ui"
+```
+
+目标目录已存在时，先检查其来源和本地改动，再更新；不要覆盖用户已有文件。Codex CLI / IDE 中可显式使用 `$agentic-craft-ui`，桌面端从技能选择器选用；也可按 description 自动匹配。
+
+### Claude Code
+
+完整目录放在 `.claude/skills/agentic-craft-ui/` 或 `~/.claude/skills/agentic-craft-ui/`，使用 `/agentic-craft-ui`。参见 [Claude Code 官方文档](https://code.claude.com/docs/en/skills)。
+
+### 其他 Agent
+
+按该宿主当前的 Agent Skills 文档安装完整目录。没有 skill 发现机制时，显式要求 Agent 读取主文件并允许访问相邻参考和脚本；不承诺复制为单一 rules 文件就能获得全部能力。
+
+例如：
+
+```text
+用 agentic-craft-ui 做一个个人订阅管理看板。先验证添加订阅、查看到期日和取消订阅的交互，再接真实数据。
+```
+
+## 轻量符号地图
+
+需 Python 3.9+，无 pip 依赖。从应用根目录运行；以下以 skill 安装在 `.agents/skills/agentic-craft-ui` 为例：
+
+```text
+python .agents/skills/agentic-craft-ui/scripts/repo_map.py . --output docs/REPO_MAP.md --snapshot docs/repo-map.snapshot.json
+python .agents/skills/agentic-craft-ui/scripts/repo_map.py . --check docs/repo-map.snapshot.json
+```
+
+支持 `.js/.jsx/.ts/.tsx/.mjs/.cjs/.mts/.cts/.vue` 文件的常见 ES export，记录符号名称、种类与行号；Vue 仅索引 script 块。无 export 文件仍会列入清单。可用 `--format json`，默认不限制已识别符号数；`--max-symbols N` 会显式记录省略量。
+
+快照检查：`0` 表示索引范围内内容未变，`1` 表示过期，`2` 表示错误或不完整。内容指纹覆盖源码和选定清单/锁文件的内容与路径；函数体修改、增删文件或覆盖范围内的配置变更会触发失效。每次检测仍读取磁盘计算哈希，不是零 I/O 缓存。
+
+**能力边界：** 使用文本启发式与普通注释/字符串屏蔽，不是 AST，不提供完整签名、依赖图、自动架构图或死代码检测。复杂模板、正则字面量、JSX 文本、解构、多变量声明、CommonJS 等可能误报或漏报。跳过预定义依赖/构建目录与符号链接，不遵循 `.gitignore`。SQL、其他语言、未列入的配置和外部系统不受指纹覆盖；“新鲜”不能证明整套架构最新。更多规则见 [架构与上下文](references/architecture-context.md)。
+
+不承诺固定的 Token 节省比例、生成时限、零冲突或全自动商业交付。
+
+## 开发验证
+
+在此仓库根目录运行：
+
+```text
+python -m unittest discover -s tests -v
+python scripts/repo_map.py --help
+git diff --check
+```
+
+测试使用临时项目验证索引与快照行为。行为场景与结果见 [验证记录](docs/VALIDATION.md)；离线决策评估不等于实际产品端到端测试或跨模型基准。
+
+## License
+
+[MIT](LICENSE)
