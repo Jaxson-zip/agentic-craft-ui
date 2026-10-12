@@ -103,6 +103,8 @@ git diff --check
 
 测试使用临时项目验证索引与快照行为。行为场景与结果见 [验证记录](docs/VALIDATION.md)；离线决策评估不等于实际产品端到端测试或跨模型基准。
 
+另在 Codex 中完成了 [订阅管理真实项目实验](docs/REAL_PROJECT_VALIDATION.md)：原型、HTTP + SQLite、30 天需求变更、生产路径与独立审查。记录包含截图、实际检查和未验证范围；没有证明跨平台运行或模型能力提升。
+
 ## License
 
 [MIT](LICENSE)
