@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-10-13T12:57:56.526870+00:00",
+  "command": "pnpm test",
+  "exit_code": 0,
+  "tests_passed": 10,
+  "scope": "real Better Auth handler + business Request/Response handler, actual SQLite, new Node process reopen; no HTTP listener or UI integration",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "node": "v24.15.0",
+    "pnpm": "11.5.0"
+  },
+  "candidate": {
+    "name": "better-auth",
+    "version": "1.7.7",
+    "license": "MIT",
+    "homepage": "https://better-auth.com"
+  },
+  "regression": {
+    "scenario": "member revoked while an authorized request reads its body",
+    "before": "200 and committed write; expected 403",
+    "after": "403; title/version/audit unchanged"
+  },
+  "limits": [
+    "no browser/API linkage",
+    "no actual HTTP/cookie transport QA",
+    "no mail or worker",
+    "no load/pagination benchmarks",
+    "no production authentication approval",
+    "no cross-platform execution"
+  ],
+  "files": {
+    "package.json": "1c85a16a6abe7f82a1b3e5e6d3b2670ccb27c5ce94b884f7d77854b2a15ba232",
+    "pnpm-lock.yaml": "7b45645befd82b588b087686cf799e96aae26269018a7b1f284b4b2fd76f7913",
+    "probe.mjs": "92c6a87500cbd6345e6dff9644781d4879c446dcf0f3b12c09e7be724764f374",
+    "schema.sql": "d2e08d522dce9ffd40a5485b861c95d576a6773273d5da9c1c3ecc2bcd22b970",
+    "verify-reopen.mjs": "5919130c733f4af12dd6fc80cabc32e244aaeed3577cffe8eb33d2c28d1cef11",
+    "test/auth.test.mjs": "98f37a026c4840ef6a81307513d09210e3f5cc78e58084fda21d35b7f7eb6b99",
+    "test/tasks.test.mjs": "514cacfac4469176fc2284e13804d68642bd8d456f49d7cf610e0e09d3e1f16b",
+    "test-output.txt": "425ee83e32afbeaa37919374a789cfc49054997fbb72226ce442e9a9e1506cd2"
+  }
+}

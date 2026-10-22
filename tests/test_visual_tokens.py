@@ -61,6 +61,27 @@ class PaletteTests(unittest.TestCase):
             with self.subTest(theme=theme):
                 self.assertTrue(used.issubset(tokens), used - tokens.keys())
 
+    def test_control_state_foreground_background_pairs(self):
+        for theme, tokens in self.themes().items():
+            for foreground, background in (
+                ('--control-disabled-text', '--control-disabled-bg'),
+                ('--control-selected-text', '--control-selected-bg'),
+                ('--field-placeholder', '--field-bg'),
+                ('--text-primary', '--field-bg'),
+            ):
+                with self.subTest(theme=theme, foreground=foreground):
+                    self.assertGreaterEqual(ratio(tokens[foreground], tokens[background]), 4.5)
+
+    def test_field_and_selected_boundaries(self):
+        for theme, tokens in self.themes().items():
+            for border, surface in (
+                ('--field-border', '--field-bg'),
+                ('--field-invalid-border', '--field-bg'),
+                ('--control-selected-border', '--control-selected-bg'),
+            ):
+                with self.subTest(theme=theme, border=border):
+                    self.assertGreaterEqual(ratio(tokens[border], tokens[surface]), 3)
+
     def test_reference_calculation_and_transparency(self):
         self.assertAlmostEqual(ratio('#000000', '#FFFFFF'), 21)
         self.assertAlmostEqual(ratio('#FF0000', '#FFFFFF'), 3.99847677, places=6)

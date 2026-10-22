@@ -15,12 +15,14 @@
 
 [../assets/themes.css](../assets/themes.css) 包含语义变量与 `.craft-action`、`.craft-surface` 示例样式。`--on-brand` 随主题改变，不能一律使用白字；focus 使用已定义的 `--focus-ring`，不要写未声明的 `--accent`。
 
+按钮预设也覆盖 disabled、pressed 与 busy；`.craft-field` 覆盖输入底色、占位、焦点和 invalid 边界。状态由使用方绑定真实行为，`aria-disabled` / `aria-busy` 不会自动阻止重复操作。完整规则见 [控件与配色规范](controls-and-color.md)。
+
 - 只需要浅色时复制 `:root` / `[data-theme="light"]` 的变量即可；只需要深色时将深色块改为本应用的根选择器，保留其前景/背景配对。
 - 项目已有 tokens 时映射到已有名称，不同时维护两套冲突变量。复制组件样式是可选的，不给整个应用做 CSS reset。
 - 双主题是产品要求时，选择器放在根节点，分别核对系统控件、切换偏好与全部状态。示例的 theme 属性本身不实现切换或偏好存储。
 - 状态底色用不透明值，避免直接复制 rgba 后忘记承载表面。新增透明、渐变、图片背景或新表面时测实际叠色。
 
-[../assets/theme-preview.html](../assets/theme-preview.html) 使用同一 CSS 文件并排展示两主题。可直接本地打开，不连接网络，不持久化；预览按钮切换文案只是模拟反馈。它验证视觉资源消费方式，不替代实际产品设计。
+[../assets/theme-preview.html](../assets/theme-preview.html) 使用同一 CSS 文件并排展示两主题。可直接本地打开，不连接网络，不持久化；预览按钮更新反馈或切换高亮状态只是模拟交互。它验证视觉资源消费方式，不替代实际产品设计。
 
 ## 已检查的范围
 
@@ -30,4 +32,6 @@
 python -m unittest discover -s tests -p test_visual_tokens.py -v
 ```
 
-这些是指定配对的数值检查，未覆盖所有未来组件、禁用透明度、复杂叠色、字体或所有焦点相邻色；不能将它升级为产品的完整无障碍验收。项目落地仍按 UI 参考检查真实页面。
+另外检查禁用/选中状态的前景背景、输入占位文字至少 4.5:1，以及输入 normal/invalid 和选中边界至少 3:1。禁用文字 4.5:1 是预设的可读性选择，不是统一的 WCAG 强制门槛。
+
+这些是指定配对的数值检查，未覆盖所有未来组件、透明叠色、字体或所有焦点相邻色；不能将它升级为产品的完整无障碍验收。项目落地仍按 UI 参考检查真实页面。

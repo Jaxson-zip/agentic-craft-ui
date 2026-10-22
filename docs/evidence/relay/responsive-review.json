@@ -1,0 +1,650 @@
+{
+  "date": "2026-10-13",
+  "scope": "Graphite responsive and quality correction; in-memory frontend only",
+  "user_feedback": {
+    "direction": "Graphite retained",
+    "motion": "acceptable",
+    "visual_quality": "still unsatisfactory before this revision",
+    "responsive": "reported unsatisfactory; corrected paths tested"
+  },
+  "before": [
+    {
+      "columns": "14px 275px 24px",
+      "firstTaskTop": 551.546875,
+      "headingHeight": 133.5,
+      "projectDisplay": "none",
+      "scroll": 375,
+      "sidebarWidth": 375,
+      "statusDisplay": "none",
+      "titleBox": 275,
+      "titleFont": "13px",
+      "toolbarHeight": 102,
+      "width": 390
+    },
+    {
+      "columns": "16px 375px 34px 75px",
+      "firstTaskTop": 560.8984375,
+      "headingHeight": 140.3984375,
+      "projectDisplay": "none",
+      "scroll": 585,
+      "sidebarWidth": 585,
+      "statusDisplay": "flex",
+      "titleBox": 182,
+      "titleFont": "13px",
+      "toolbarHeight": 102,
+      "width": 600
+    },
+    {
+      "columns": "16px 575px 34px 75px",
+      "firstTaskTop": 560.8984375,
+      "headingHeight": 140.3984375,
+      "projectDisplay": "none",
+      "scroll": 785,
+      "sidebarWidth": 785,
+      "statusDisplay": "flex",
+      "titleBox": 182,
+      "titleFont": "13px",
+      "toolbarHeight": 102,
+      "width": 800
+    },
+    {
+      "columns": "18px 259px 80px 35px 80px",
+      "firstTaskTop": 431.8984375,
+      "headingHeight": 150.3984375,
+      "projectDisplay": "block",
+      "scroll": 786,
+      "sidebarWidth": 200,
+      "statusDisplay": "flex",
+      "titleBox": 196,
+      "titleFont": "14px",
+      "toolbarHeight": 64,
+      "width": 801
+    },
+    {
+      "columns": "18px 482px 80px 35px 80px",
+      "firstTaskTop": 431.8984375,
+      "headingHeight": 150.3984375,
+      "projectDisplay": "block",
+      "scroll": 1009,
+      "sidebarWidth": 200,
+      "statusDisplay": "flex",
+      "titleBox": 196,
+      "titleFont": "14px",
+      "toolbarHeight": 64,
+      "width": 1024
+    },
+    {
+      "columns": "20px 737px 105px 55px 100px",
+      "firstTaskTop": 431.8984375,
+      "headingHeight": 150.3984375,
+      "projectDisplay": "block",
+      "scroll": 1425,
+      "sidebarWidth": 232,
+      "statusDisplay": "flex",
+      "titleBox": 196,
+      "titleFont": "14px",
+      "toolbarHeight": 64,
+      "width": 1440
+    }
+  ],
+  "after": [
+    {
+      "compactNav": "flex",
+      "contentWidth": 269,
+      "firstTaskDocumentTop": 367,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 305,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 320
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 339,
+      "firstTaskDocumentTop": 367,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 375,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 390
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 509,
+      "firstTaskDocumentTop": 367,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 545,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 560
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 498,
+      "firstTaskDocumentTop": 369,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 546,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 561
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 537,
+      "firstTaskDocumentTop": 369,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 585,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 600
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 560,
+      "firstTaskDocumentTop": 369,
+      "ownerColumn": "none",
+      "ownerContext": "flex",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 608,
+      "sidebar": "none",
+      "statusColumn": "none",
+      "statusContext": "flex",
+      "titleFont": "15px",
+      "width": 623
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 561,
+      "firstTaskDocumentTop": 366,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 609,
+      "sidebar": "none",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 624
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 737,
+      "firstTaskDocumentTop": 366,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 785,
+      "sidebar": "none",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 800
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 738,
+      "firstTaskDocumentTop": 366,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 786,
+      "sidebar": "none",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 801
+    },
+    {
+      "compactNav": "flex",
+      "contentWidth": 976,
+      "firstTaskDocumentTop": 366,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "block",
+      "projectContext": "none",
+      "scroll": 1024,
+      "sidebar": "none",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1039
+    },
+    {
+      "compactNav": "none",
+      "contentWidth": 738.6,
+      "firstTaskDocumentTop": 358,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 1025,
+      "sidebar": "flex",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1040
+    },
+    {
+      "compactNav": "none",
+      "contentWidth": 849.5,
+      "firstTaskDocumentTop": 358,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "none",
+      "projectContext": "flex",
+      "scroll": 1143,
+      "sidebar": "flex",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1158
+    },
+    {
+      "compactNav": "none",
+      "contentWidth": 850.5,
+      "firstTaskDocumentTop": 358,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "block",
+      "projectContext": "none",
+      "scroll": 1144,
+      "sidebar": "flex",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1159
+    },
+    {
+      "compactNav": "none",
+      "contentWidth": 964.2,
+      "firstTaskDocumentTop": 358,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "block",
+      "projectContext": "none",
+      "scroll": 1265,
+      "sidebar": "flex",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1280
+    },
+    {
+      "compactNav": "none",
+      "contentWidth": 1114.6,
+      "firstTaskDocumentTop": 358,
+      "ownerColumn": "flex",
+      "ownerContext": "none",
+      "projectColumn": "block",
+      "projectContext": "none",
+      "scroll": 1425,
+      "sidebar": "flex",
+      "statusColumn": "flex",
+      "statusContext": "none",
+      "titleFont": "14px",
+      "width": 1440
+    }
+  ],
+  "long_content": {
+    "context": "平台体验·10月16日XQ许晴",
+    "focus": "RE-142",
+    "font": "15px",
+    "progress": "任务列表56 / 1250%",
+    "rowHeight": 253.09375,
+    "scroll": 305,
+    "status": "已完成",
+    "titleHeight": 148.5,
+    "titleLength": 103,
+    "titleScroll": 230,
+    "titleWidth": 230,
+    "width": 320
+  },
+  "short_drawer": {
+    "close": {
+      "bottom": 62,
+      "height": 44,
+      "left": 309,
+      "right": 353,
+      "top": 18,
+      "width": 44,
+      "x": 309,
+      "y": 18
+    },
+    "drawer": {
+      "bottom": 568,
+      "height": 568,
+      "left": 0,
+      "right": 390,
+      "top": 0,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "focus": "issue-title",
+    "height": 568,
+    "save": [
+      {
+        "label": "取消",
+        "rect": {
+          "bottom": 538,
+          "height": 44,
+          "left": 170,
+          "right": 230,
+          "top": 494,
+          "width": 60,
+          "x": 170,
+          "y": 494
+        }
+      },
+      {
+        "label": "保存更改",
+        "rect": {
+          "bottom": 538,
+          "height": 44,
+          "left": 240,
+          "right": 353,
+          "top": 494,
+          "width": 113,
+          "x": 240,
+          "y": 494
+        }
+      }
+    ],
+    "width": 390
+  },
+  "short_save": {
+    "focus": "RE-142",
+    "progress": "任务列表126 / 1250%",
+    "status": "已完成",
+    "title": "成员邀请支持批量添加与失效提醒 · 验收"
+  },
+  "contrast": [
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(45, 55, 75)",
+      "contrast": 11.93,
+      "font": "14px",
+      "selector": ".task-name"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(101, 114, 138)",
+      "contrast": 4.85,
+      "font": "12px",
+      "selector": ".issue-id"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(99, 113, 137)",
+      "contrast": 4.94,
+      "font": "12px",
+      "selector": ".row-project"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(83, 97, 119)",
+      "contrast": 6.28,
+      "font": "12px",
+      "selector": ".row-person"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(40, 117, 84)",
+      "contrast": 5.58,
+      "font": "12px",
+      "selector": ".row-status"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(99, 113, 137)",
+      "contrast": 4.94,
+      "font": "12px",
+      "selector": ".row-due"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(38, 49, 69)",
+      "contrast": 13.06,
+      "font": "13px",
+      "selector": ".select-trigger"
+    },
+    {
+      "background": "rgb(233, 236, 250)",
+      "color": "rgb(68, 78, 156)",
+      "contrast": 6.34,
+      "font": "13px",
+      "selector": ".side-nav button[aria-pressed=\"true\"]"
+    }
+  ],
+  "reduced": {
+    "clip": "inset(0px 0px 0px 0%)",
+    "opacity": "1",
+    "reduced": "true",
+    "transform": "none"
+  },
+  "checks": {
+    "navigation_mine": {
+      "ids": [
+        "RE-144",
+        "RE-148",
+        "RE-149"
+      ],
+      "focus_return": "打开工作区导航"
+    },
+    "navigation_project": {
+      "project": "平台体验",
+      "count": 5
+    },
+    "navigation_escape": true,
+    "draft_escape_discard": true,
+    "blank_save_disabled": true,
+    "empty_search_and_clear": true,
+    "studio_switch": true,
+    "nav_keyboard_wrap": {
+      "focus": "开发者体验3",
+      "inside": true
+    },
+    "nav_escape_focus": "打开工作区导航"
+  },
+  "console_errors": [],
+  "limits": [
+    "Windows/Codex browser only",
+    "No screen-reader or mobile keyboard validation",
+    "No full WCAG certification",
+    "User has not accepted new visual finish",
+    "No backend or full SaaS validation"
+  ],
+  "styles_cleanup": {
+    "removed_rules": 94,
+    "regression_found": "Desktop display:grid depended on the removed old rule; first task moved to 1080px",
+    "regression_fixed": true,
+    "verified": [
+      {
+        "display": "grid",
+        "firstTaskTop": 367,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 305,
+        "statusAvailable": true,
+        "titleFont": "15px",
+        "width": 320
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 367,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 375,
+        "statusAvailable": true,
+        "titleFont": "15px",
+        "width": 390
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 369,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 585,
+        "statusAvailable": true,
+        "titleFont": "15px",
+        "width": 600
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 369,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 608,
+        "statusAvailable": true,
+        "titleFont": "15px",
+        "width": 623
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 366,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 609,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 624
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 366,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 785,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 800
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 366,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 786,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 801
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 366,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1024,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1039
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 358,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1025,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1040
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 358,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1143,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1158
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 358,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1144,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1159
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 358,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1265,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1280
+      },
+      {
+        "display": "grid",
+        "firstTaskTop": 358,
+        "ownerAvailable": true,
+        "projectAvailable": true,
+        "scroll": 1425,
+        "statusAvailable": true,
+        "titleFont": "14px",
+        "width": 1440
+      }
+    ],
+    "studio_smoke": {
+      "cards": 12,
+      "columns": "415px 415px 415px"
+    }
+  },
+  "current_pane": {
+    "firstTaskDocumentTop": 369,
+    "height": 704,
+    "rows": 12,
+    "width": 598
+  },
+  "historical_console_errors_during_edit": [
+    {
+      "level": "error",
+      "message": "[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)",
+      "timestamp": "2026-10-13T11:29:48.469Z",
+      "url": "http://127.0.0.1:4290/@vite/client"
+    }
+  ],
+  "clean_reload": {
+    "started": "2026-10-13T12:32:51.815Z",
+    "observed": {
+      "grid": "grid",
+      "heading": "迭代 08",
+      "rows": 12,
+      "width": 598
+    }
+  }
+}

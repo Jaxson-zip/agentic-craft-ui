@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-14",
+  "run_id": "14c84832ae6c",
+  "work_item": "ACUI-3",
+  "execution_host": "current Codex session; no background agent",
+  "source_sha256": {
+    "src/components/IssueEditor.tsx": "8afba8cb173e616d63796cb68c1b056c5c5a3ac84fc3816e262776c523a12600",
+    "src/styles/controls.css": "0d3a554722c9d81784460be5dfa8d5ec5944a0d20e9258e8e749965db28f7bea",
+    "src/App.tsx": "a5338d573a4250864358523626d87035d48f470f5aff2f3fdc32d94482dca007"
+  },
+  "screenshot_sha256": {
+    "before.png": "10ee9212af7ffb7de2a177d651028478b90788d67f9f6b7d804df36cacdeb340",
+    "after-invalid.png": "bc5ef2fb212caad4d91ec641442f51900d5269ef54237b3bf67220fa687a1c1e",
+    "mobile.png": "f06be9cf8b4ce94c217bf813e6ab8850e9fcd6cd0197fcffc6feed4a925a4dcc"
+  },
+  "checks": [
+    {
+      "command": "npm run test",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "docs/feedback-run/test.log"
+    },
+    {
+      "command": "npm run lint",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "docs/feedback-run/lint.log"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "docs/feedback-run/build.log"
+    }
+  ],
+  "browser_checks": [
+    {
+      "name": "blank title explains disabled save and associates error",
+      "status": "passed",
+      "observed": {
+        "border": "rgb(180, 35, 56)",
+        "describedBy": "issue-title-help issue-title-error",
+        "help": "请输入任务名称，不能只包含空格。",
+        "invalid": "true"
+      }
+    },
+    {
+      "name": "valid draft clears error and enables save",
+      "status": "passed"
+    },
+    {
+      "name": "Space opens status options; Escape restores focus",
+      "status": "passed",
+      "observed": {
+        "background": "rgb(255, 255, 255)",
+        "border": "rgb(124, 135, 153)",
+        "focused": true,
+        "outline": "rgb(86, 95, 192)"
+      }
+    },
+    {
+      "name": "read-only title remains focusable/selectable; no save action",
+      "status": "passed",
+      "observed": {
+        "description": "只读内容可选择和复制。10 / 160",
+        "disabled": false,
+        "focused": true,
+        "readOnly": true
+      }
+    },
+    {
+      "name": "390px invalid form wraps and stays within viewport",
+      "status": "passed",
+      "observed": {
+        "dialogClientWidth": 375,
+        "dialogScrollWidth": 375,
+        "errorBackground": "rgb(255, 255, 255)",
+        "errorBorder": "rgb(180, 35, 56)",
+        "errorColor": "rgb(180, 35, 56)",
+        "fieldLeft": 22,
+        "fieldRight": 353,
+        "saveDisabled": true,
+        "viewport": 390
+      }
+    },
+    {
+      "name": "interactive border >=3; error and disabled label >=4.5 against actual surfaces",
+      "status": "passed",
+      "observed": {
+        "colors": {
+          "boundary": "rgb(124, 135, 153)",
+          "disabledOpacity": "1",
+          "disabledSurface": "rgb(237, 240, 245)",
+          "disabledText": "rgb(94, 105, 125)",
+          "error": "rgb(180, 35, 56)",
+          "surface": "rgb(255, 255, 255)"
+        },
+        "ratios": {
+          "boundary": 3.631591998344682,
+          "error": 6.485130093589804,
+          "disabledText": 4.847062068549474
+        }
+      }
+    },
+    {
+      "name": "empty title is explained and cannot be saved",
+      "status": "passed"
+    },
+    {
+      "name": "valid edited title saves through real API and survives refresh",
+      "status": "passed",
+      "observed": {
+        "task": "RE-142",
+        "saved": true,
+        "busy_ui_observed": true,
+        "restored_original_title": true,
+        "test_writes": 2
+      }
+    }
+  ],
+  "technical_checks_passed": true,
+  "not_run": [
+    "slow-request focus and network failure UI",
+    "full accessibility audit",
+    "multi-user Plane acceptance"
+  ],
+  "recording_limits": [
+    "Single local adapter writer lock; no remote atomic idempotency or Plane state CAS"
+  ],
+  "user_acceptance": "pending",
+  "plane": {
+    "identifier": "ACUI-3",
+    "comment_id": "b30208f9-d9fd-43e3-9456-b36be6975540",
+    "state": "待验收",
+    "state_recording": "preserved_after_existing_receipt",
+    "review_state_confirmed": true,
+    "receipt_count": 1,
+    "actor_matches_test_owner": true,
+    "duplicate_receipt_created": false,
+    "user_acceptance": "pending"
+  },
+  "recording_verification": {
+    "same_run_retry": "passed",
+    "local_lock_rejection": "passed",
+    "remote_atomicity": "not-provided"
+  }
+}

@@ -25,11 +25,15 @@
     .danger { color: var(--badge-danger-text); background: var(--badge-danger-bg); }
     .neutral { color: var(--badge-neutral-text); background: var(--badge-neutral-bg); }
     .feedback { min-height: 26px; color: var(--text-secondary); }
+    .preview-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+    .preview-field { display: block; margin: 12px 0; font-size: 14px; }
+    .preview-field input { display: block; width: 100%; margin-top: 6px; }
+    .preview-error { margin: 4px 0 0; font-size: 14px; color: var(--badge-danger-text); }
     @media (max-width: 700px) { main { grid-template-columns: 1fr; padding: 0 16px 24px; } section { padding: 16px; } }
   </style>
 </head>
 <body>
-  <header><h1>可选配色预览</h1><p>两套颜色起点。模拟按钮反馈，无网络请求、存储或真实业务操作；布局按产品需要另行设计。</p></header>
+  <header><h1>可选配色预览</h1><p>两套颜色起点。按钮仅有模拟反馈，无业务请求、存储或真实数据写入；布局按产品需要另行设计。</p></header>
   <main>
     <section data-theme="light" aria-labelledby="light-title">
       <h2 id="light-title">清透浅色</h2>
@@ -41,9 +45,28 @@
     </section>
   </main>
   <script>
+    document.querySelectorAll('section').forEach((section, index) => {
+      const controls=document.createElement('div');controls.className='preview-controls';
+      controls.innerHTML='<button class="craft-action" type="button" disabled>不可用</button><button class="craft-action" type="button" aria-pressed="true">高亮示例</button><button class="craft-action" type="button" aria-busy="true" disabled>正在处理（示例）</button>';
+      const field=document.createElement('label');field.className='preview-field';field.htmlFor='sample-field-'+index;field.textContent='输入与占位';
+      const input=document.createElement('input');input.id=field.htmlFor;input.className='craft-field';input.placeholder='用 Tab 检查输入焦点';field.append(input);
+      section.querySelector('.panel').append(controls,field);
+      const disabledField=document.createElement('label');disabledField.className='preview-field';disabledField.textContent='不可用输入（示例）';
+      const disabledInput=document.createElement('input');disabledInput.className='craft-field';disabledInput.disabled=true;disabledInput.placeholder='当前不可编辑';disabledField.append(disabledInput);section.querySelector('.panel').append(disabledField);
+      const readonlyField=document.createElement('label');readonlyField.className='preview-field';readonlyField.textContent='只读输入（仍可聚焦和复制）';
+      const readonlyInput=document.createElement('input');readonlyInput.className='craft-field';readonlyInput.readOnly=true;readonlyInput.value='这段内容可以复制';readonlyField.append(readonlyInput);section.querySelector('.panel').append(readonlyField);
+      const errorField=document.createElement('label');errorField.className='preview-field';errorField.htmlFor='error-field-'+index;errorField.textContent='错误输入（静态示例）';
+      const errorInput=document.createElement('input');errorInput.id=errorField.htmlFor;errorInput.className='craft-field';errorInput.setAttribute('aria-invalid','true');errorInput.setAttribute('aria-describedby','error-help-'+index);errorField.append(errorInput);
+      const errorHelp=document.createElement('p');errorHelp.id='error-help-'+index;errorHelp.className='preview-error';errorHelp.textContent='请填写内容（状态展示，不执行提交）';section.querySelector('.panel').append(errorField,errorHelp);
+    });
     document.querySelectorAll('.craft-action').forEach(button => {
       button.addEventListener('click', () => {
-        button.parentElement.querySelector('.feedback').textContent = '模拟反馈已更新 · 没有写入真实数据';
+        if(button.disabled||button.getAttribute('aria-disabled')==='true'||button.getAttribute('aria-busy')==='true')return;
+        const feedback=button.closest('section').querySelector('.feedback');
+        if(button.hasAttribute('aria-pressed')){
+          const pressed=button.getAttribute('aria-pressed')!=='true';button.setAttribute('aria-pressed',String(pressed));
+          feedback.textContent=pressed?'示例高亮已开启 · 模拟反馈':'示例高亮已关闭 · 模拟反馈';
+        }else feedback.textContent='模拟反馈已更新 · 没有写入真实数据';
       });
     });
   </script>
