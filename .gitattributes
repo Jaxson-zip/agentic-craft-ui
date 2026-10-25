@@ -2,6 +2,4 @@
 *.md text eol=lf
 *.py text eol=lf
 *.yml text eol=lf
-# Preserve the exact bytes of archived execution evidence and fingerprints.
-docs/evaluation/** -text -whitespace
-docs/evidence/** -text -whitespace
+*.html text eol=lf

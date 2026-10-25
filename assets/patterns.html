@@ -4,9 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>组件配方 · 照着 flomo 和滴答清单做</title>
-<link rel="stylesheet" href="fonts/misans.css">
-<link rel="stylesheet" href="themes.css">
 <style>
+  /* 示例用的几个颜色变量；真实项目换成组件库主题，强调色按 references/ui.md 选。
+     装了 MiSans 会自动用上，没装就退回系统中文字体。 */
+  :root {
+    --bg-page: #FAFAF9; --bg-card: #FFFFFF; --bg-muted: #F2F2F0;
+    --border-subtle: #E7E5E4; --border-strong: #78716C;
+    --text-primary: #1C1917; --text-secondary: #44403C; --text-muted: #67615C;
+    --accent: #F2610D; --accent-text: #B4400A; --accent-soft: #FFF1E7;
+    --badge-success-text: #006836; --badge-danger-text: #B71824; --badge-warning-bg: #FFEFCD; --badge-warning-text: #844B00;
+    --font-sans: "MiSans", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --shadow-1: 0 0 0 1px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04), 0 4px 16px rgba(28, 25, 23, 0.04);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: var(--font-sans); font-size: 14px; line-height: 1.6; color: var(--text-primary); background: var(--bg-page); -webkit-font-smoothing: antialiased; }
   button, input { font: inherit; color: inherit; }

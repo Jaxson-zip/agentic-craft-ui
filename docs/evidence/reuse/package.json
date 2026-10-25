@@ -1,8 +1,0 @@
-{
-  "name": "craft-ui-reuse-probe",
-  "private": true,
-  "type": "module",
-  "scripts": { "test": "node --test test/*.test.mjs" },
-  "engines": { "node": ">=24.15.0" },
-  "dependencies": { "better-auth": "1.7.7" }
-}

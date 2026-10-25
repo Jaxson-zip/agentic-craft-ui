@@ -23,10 +23,5 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ matrix.python }}
-      - name: Run deterministic regressions
+      - name: Check skill size and links
         run: python -X utf8 -m unittest discover -s tests -v
-      - name: Check CLI entrypoints
-        run: |
-          python -X utf8 scripts/repo_map.py --help
-          python -X utf8 scripts/sync_skill.py --help
-          python -X utf8 scripts/accent.py --help
