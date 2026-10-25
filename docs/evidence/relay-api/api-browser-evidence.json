@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-13",
+  "scope": "local HTTP + Graphite browser vertical slice",
+  "cases": [
+    {
+      "name": "wrong-password",
+      "result": "visible error and retry enabled"
+    },
+    {
+      "name": "login",
+      "result": "林悦, 研协工作区, 12 tasks, editable"
+    },
+    {
+      "name": "save-reload",
+      "result": "RE-142 title retained, version 1 to 2"
+    },
+    {
+      "name": "two-window-conflict",
+      "result": "first draft retained at version 2 after another window committed; save disabled; comparison entry visible"
+    },
+    {
+      "name": "service-restart",
+      "result": "while API stopped, failure visible and draft preserved; after new API process, server version 4 and saved title read with same session"
+    },
+    {
+      "name": "organization-switch",
+      "result": "12 RE tasks in 研协, 2 ST tasks in 星河; no RE task displayed in 星河; URL preserves organization"
+    },
+    {
+      "name": "read-only",
+      "result": "星河 role shown read-only; detail textarea readOnly; no save action"
+    },
+    {
+      "name": "conflict-recovery",
+      "result": "explicit latest-version load followed by edit and save; refreshed progress 6/12, 50%; fixture status restored afterwards"
+    },
+    {
+      "name": "failed-save-keyboard-focus",
+      "result": "focus moved to 核对服务器版本; draft preserved; save disabled"
+    },
+    {
+      "name": "logout",
+      "result": "login form returned and task list removed"
+    },
+    {
+      "name": "unchanged-server-draft-retry",
+      "result": "after API restart, version7 unchanged; keep-draft action preserved original input, focused textarea and enabled save; saved draft appeared after reload"
+    }
+  ],
+  "responsive": [
+    {
+      "firstTask": 481.890625,
+      "logout": true,
+      "organization": true,
+      "scroll": 305,
+      "tasks": 12,
+      "width": 320
+    },
+    {
+      "firstTask": 427.890625,
+      "logout": true,
+      "organization": true,
+      "scroll": 375,
+      "tasks": 12,
+      "width": 390
+    },
+    {
+      "firstTask": 425.890625,
+      "logout": true,
+      "organization": true,
+      "scroll": 585,
+      "tasks": 12,
+      "width": 600
+    },
+    {
+      "firstTask": 415.3984375,
+      "logout": true,
+      "organization": true,
+      "scroll": 1025,
+      "tasks": 12,
+      "width": 1040
+    },
+    {
+      "firstTask": 415.3984375,
+      "logout": true,
+      "organization": true,
+      "scroll": 1425,
+      "tasks": 12,
+      "width": 1440
+    }
+  ],
+  "loginResponsive": [
+    {
+      "login": true,
+      "scroll": 320,
+      "width": 320
+    },
+    {
+      "login": true,
+      "scroll": 390,
+      "width": 390
+    }
+  ],
+  "final": {
+    "canLogout": true,
+    "firstTask": "RE-142进行中成员邀请支持批量添加与失效提醒平台体验·10月16日XQ许晴平台体验XQ许晴进行中10月16日",
+    "height": 704,
+    "organization": "研协工作区",
+    "scroll": 583,
+    "tasks": 12,
+    "width": 598
+  },
+  "cleanReload": {
+    "started": "2026-10-13T15:19:21.179Z",
+    "errors": []
+  },
+  "expectedErrorsDuringChecks": [],
+  "limits": [
+    "Windows/Codex only",
+    "no screen reader, real mobile keyboard or complete WCAG audit",
+    "no mail, worker, billing, full pagination or load tests",
+    "new account/organization/error screens not yet reviewed by user"
+  ],
+  "independentReview": {
+    "findings": 2,
+    "resolved": 2,
+    "sessionRegressions": [
+      "sign-out during body read",
+      "expiry during body read"
+    ],
+    "sourceRecheck": "both resolved, 19 tests passed; reviewer did not operate browser"
+  }
+}

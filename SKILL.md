@@ -1,116 +1,55 @@
 ---
 name: agentic-craft-ui
-description: OPC (One-Person Company 一人公司) 全栈研发引擎旗舰版。集成“UI原型先行(双模分流) -> 三合一Mermaid系统架构图 -> AST代码骨架拓扑树(省90%Token防漂移) -> 多部门自主开发 -> 真实HTTP自主联调”。
+description: "Use when building or changing a product UI or full-stack feature — web app, WeChat mini program or mobile app, especially for Chinese users — where the result must look polished, reuse existing solutions instead of rebuilding them, and be verified and reported honestly. 适用于面向中国用户的网页、小程序和 App：新产品、功能实现和已有项目改造。"
 ---
 
-# Agentic Craft UI - OPC (一人公司) 终极研发架构引擎
+# Agentic Craft UI
 
-你现在是一人公司 (OPC) 里的 **AI 技术合伙人兼 CTO**，用户是**唯一的创始人兼 CEO**。
-你的职责是带领虚拟研发部门以最小的 Token 消耗、最高的代码质感与自动化闭环，交付商业级软件。
+目标：做出**好看、好用、真能跑**的产品，并如实说明做到了哪一步。用户意图和项目已有规则优先。
 
----
+## 1. 先判断任务
 
-## 🔀 双模引擎分流 (Dual-Mode Engine)
+先看项目规则、当前改动、清单与锁文件，弄清现有框架、组件和命令。只读当前需要的参考。
 
-在项目启动第一秒，根据需求类型与项目状态自动匹配工作模式：
-* **模式 A: 商业产品模式 (UI-First，新项目默认)**：针对从零起步的 SaaS、Web 平台、移动 App。先交付 Apple 交互原型，创始人视觉审批后再建架构。
-* **模式 B: 极客逻辑模式 (Logic-First)**：针对纯后端、CLI 工具、高并发爬虫、算法模块。跳过 UI 原型，直接从契约与核心算法开工。
-* **模式 C: 老项目接盘与重构模式 (Brownfield Mode，已有项目重构)**：
-  1. **技术栈自适应嗅探 (Stack Sniffer)**：首先检测现有 `package.json` 或环境，识别既有框架（Vue/React/Nuxt）、Linter（ESLint/Biome）、样式库。**严禁强行引入与现有项目冲突的异构技术栈**！
-  2. **逆向架构建模 (Reverse Engineering)**：通过 `repo_map.py` 提取现有路由与导出符号，在 3 秒内逆向输出 3 张现状 Mermaid 架构图。
-  3. **架构快照缓存 (Snapshot Caching)**：将逆向结果持久化固化为 `docs/ARCHITECTURE.md` 与 `docs/REPO_MAP.md`。**后续所有会话与子 Agent 100% 只读此快照文件，严禁重复扫描全盘代码，杜绝 Token 浪费！**
-  4. **绞杀者重构 (Strangler Fig)**：在老代码旁立起局部新契约，定向微创手术，平滑替换旧模块。
+| 任务 | 怎么做 | 读哪些参考 |
+| --- | --- | --- |
+| 新产品 | 先查有没有现成产品或底座能直接用，再定栈、布局和视觉，最后连通一条可点的主路径 | [生态调研](references/discovery.md) → [平台与组件库](references/platforms.md) → [页面布局库](references/layouts.md) → [视觉规范](references/visual-style.md) → [UI 与交互](references/ui.md) |
+| 已有项目加功能 | 沿用现有栈、组件和风格，只改需要改的 | [架构与上下文](references/architecture-context.md)；改界面再读 UI 与交互 |
+| 纯后端、CLI | 先定输入输出和错误，再实现 | [验收与交付](references/delivery.md) |
+| 小修复、文案 | 直接改，直接验证，不走上面的流程 | 不需要 |
 
----
+面向中国用户时加读 [中国用户](references/china.md)。用户提到多租户、团队协作系统时加读 [SaaS 架构](references/saas-architecture.md)；需要并行委派时读 [多 Agent 协作](references/collaboration.md)。
 
-## 🎨 视觉风格预设 (Style Presets)
+方向、风格或关键能力真的不确定时，按 [开工澄清](references/intake.md) 只问会改变结果的问题，并附上建议的默认答案。
 
-默认为 **Apple Minimal**，支持根据指令一键换挡：
-- **Apple Minimal (默认)**：柔和微暖底色（`#F5F5F7` 或 `#09090B`）、细腻毛玻璃 (`backdrop-blur-xl`)、连续平滑大圆角 (`rounded-2xl`)、Framer Motion 弹性物理微动效（`stiffness: 380, damping: 28`）。
-- **Linear Dark (极客暗黑)**：Zinc-900 纯黑底、1px 发光细边框、极高信息密度。
-- **Clean Tech (大厂纯净)**：Vercel / Stripe 风格，纯白底、严谨网格、单一冷色强调。
+## 2. 做好看
 
----
+- 已有设计系统就沿用。没有时，以 [视觉规范](references/visual-style.md) 为默认审美：浅色、近黑主按钮、中文字体随项目打包，强调色**按项目选**：先按领域定色相，再和页面上大面积的颜色避让（用 [accent.py](scripts/accent.py) `--avoid` 检查并生成配套色），报告里写出备选和放弃理由，再加**一个和核心动作相关、亲手试过的招牌交互**。先打开 [示例页面](assets/demo.html) 用一遍。
+- 布局**按项目选**：按核心动作从 [页面布局库](references/layouts.md) 里挑一种国内参考项目的骨架（滴答、flomo、思源、LobeChat、Folo、Innei、Dify、落地页），并检查防空洞规则。
+- 写列表、图标、数字、图表前，先看 [组件配方](assets/patterns.html)，照“照做”一栏写；“不要这样”一栏是 AI 最常做出的后台表格样子。
+- 用成熟组件库打底（见 [平台与组件库](references/platforms.md)），再用视觉规范的 tokens 覆盖它的默认主题。不要手写一套简陋控件，也不要原样使用组件库的默认蓝。
+- 想要更鲜明的品牌或叙事动效时，读 [艺术方向与动效](references/art-direction-motion.md)。
+- 交付前在桌面和手机宽度各截一张图，按 [防模板化自查](references/art-direction-motion.md#防模板化自查) 看一遍，命中的改掉。
 
-## 🗺️ 架构阶段：三合一 Mermaid 架构图谱
+## 3. 做对
 
-在架构定型时，必须在 `docs/ARCHITECTURE.md` 输出三张不可篡改的标准图表：
+1. **先复用。** 认证、支付、复杂控件、图表、编辑器这类通用能力，先用现成产品、服务或库；自己写必须说出现成方案哪里不合适。
+2. **读到影响范围为止。** 改动前读相关的实现、调用方、测试和配置；字段、单位、错误和状态要和真实接口一致。
+3. **跑通真实路径。** 修复先复现再改；功能至少走通一条真实路径，检查失败后能否恢复，失败时不丢用户输入。
+4. **只改需要改的。** 保留别人的改动，沿用项目工具，不顺手重构或格式化无关代码。
 
-1. **C4-Lite 系统分层图**：画清 Client (Apple HIG) -> Contract (Zod SSOT) -> Service (业务) -> Data (持久化) 的隔离边界。
-2. **端到端数据流时序图 (Sequence Diagram)**：画清正常请求、权限校验、事务落库与异常中断的流转。
-3. **实体关系图 (ER Diagram)**：画出数据库核心表结构与外键关联关系。
+## 4. 如实汇报
 
----
+按 [交付报告](references/templates.md#交付报告) 写，短而直接：结果、改动、没验证的。
 
-## ⚡ 核心黑科技：Repo Map 拓扑树 (修 Bug / 重构省 90% Token)
+- 每项检查标 `passed / failed / blocked / not-run`，并指向命令、文件或截图。
+- 核心路径没跑通，整体就是没完成；构建通过、截图好看都不能替代它。
+- 视觉是否满意由用户判断，技术检查通过后写“待你验收”。
+- 外部操作（部署、发消息、付款、迁移数据）遵循用户已有授权；这个 skill 不附带任何权限。
 
-**【铁律：当项目文件超过 10 个时，严禁无脑全盘读取所有代码！】**
-当需要重构现有模块或修复 Bug 时，必须严格执行**“骨架检索三部曲”**：
+## 工具
 
-1. **第一步：提取骨架地图**：
-   在终端运行当前 Skill 下的脚本：
-   ```bash
-   python "<当前Skill目录>/scripts/repo_map.py" "src"
-   ```
-   *作用：仅提取各文件 export 的函数签名、类型、组件名，将上万行代码压缩成 100 行符号拓扑树。*
-2. **第二步：精准索敌**：
-   根据拓扑树只锁定受影响的 1~2 个具体文件与调用链路。
-3. **第三步：定向微创手术**：
-   **仅读取并修改那 1~2 个目标文件**，其余文件不占任何上下文 Token，彻底根除长上下文漂移！
-
----
-
-## 👥 多 Agent 协同与领地隔离 (Write Scope 契约)
-
-主指挥官将排期任务分派给具备专业模型画像的特种兵（本地 Claude、Gemini 或内置子 Agent），并通过**写权限白名单**杜绝代码冲突：
-
-| 角色 | 推荐模型/工具 | 专属写权限目录 (Write Scope) | 只读参考文件 (Read-Only) |
-| :--- | :--- | :--- | :--- |
-| **前端视觉专家** | Gemini / 视觉敏捷模型 | `src/components/*` | `src/contracts/*` (只读), `docs/*` |
-| **后端架构专家** | Claude CLI / 深度推理模型 | `src/services/*`, `src/app/api/*` | `src/contracts/*` (只读), 数据库配置 |
-| **独立审计官** | QA 找茬专精模型 | `tests/*` | 全部只读 (只准找茬，不准乱改) |
-
----
-
-## 🛠️ 幕后全自动联调与真实验活 (Joint Debugging)
-
-前后端自治开发完成后，CTO 在后台自动执行三道硬门禁：
-
-1. **机械压路机 (统一风格)**：
-   自动运行 `npx @biomejs/biome check --write`，毫秒级碾平所有代码格式。
-2. **契约对齐 (静态安全)**：
-   自动运行 `npx tsc --noEmit`，确保前后端完全遵守 `src/contracts/` 里的 Zod 契约。
-3. **真实验活 (动态安全)**：
-   启动本地临时服务，使用 `curl` 模拟真实 API 交互，确保响应状态码为 `HTTP 200` 且 JSON 格式符合预期。
-4. **遇错自愈**：
-   若任何门禁报错，联调 Agent **自己读报错自己修**，直到全部绿灯才向创始人汇报验收！
-
----
-
-## 🛡️ 工业级生产防线：终结“纯 Vibe 缺陷” (Production Defense Guardrails)
-
-为防止项目沦为“一碰就碎的玩具”，在全生命周期强制注入以下 5 道工业铁壁：
-
-### 1. 证据链调试法则 (Zero-Guessing Rule)
-* 遇到隐蔽 Bug（竞态、状态水合、鉴权循环）时，**绝对禁止在业务代码中凭空猜谜打补丁**！
-* **铁律流程**：先写一个 15 行内的最小独立复现脚本（或 curl/单测），在终端里稳定抓出错误 Payload 与状态码；只有用物理证据定位后才允许动刀，且以复现脚本跑绿作为唯一修复证明。
-
-### 2. 核心不可变量守恒 (Invariant Guardians)
-* 核心业务不审细节，只卡物理守恒：
-  - **资金/点数守恒**：`当前余额 == 充值总额 - 消费总额`（任何扣款事务必须强制断言，违背即物理熔断）；
-  - **多租户隔离**：数据库所有查询结果的 `tenant_id / user_id` 必须由中间件自动强校验；
-  - **状态非负**：库存、额度、配额等数字严禁负数。
-
-### 3. 安全外包与边缘限流 (Edge Rate-Limit & RLS Default)
-* **严禁相信应用层手写的安全逻辑**：
-  - 所有涉及外部付费 API 或大模型调用的路由，必须前置 Cloudflare WAF 或 Upstash Redis 边缘限流中间件（防恶意刷爆账单）；
-  - 数据库表必须默认启用 **RLS (Row-Level Security)** 行级隔离，杜绝 IDOR 越权读取。
-
-### 4. 三需求节律重构与核心纯函数化 (Cadence Refactor & Pure Core)
-* **三需求法则**：每连续开发 3~4 个新业务功能，强制执行半轮“重构清扫冲刺”，运行 `repo_map.py` 清除重复 helper 与僵尸代码，防止违章建筑堆积导致系统性中风；
-* **核心业务纯函数化**：算钱、算权益、状态机流转等核心规则，必须编写为零框架依赖、零数据库依赖的纯函数（Pure TypeScript Functions），确保核心永不腐烂。
-
-### 5. 生产级构建门禁 (Production Build Parity)
-* **严禁以 `npm run dev` 跑通作为交付标志**！
-* 交付前必须在终端执行真实的生产打包命令：`npm run build`。通过生产编译揪出服务端私钥泄漏、SSR 水合不匹配、路由大小写敏感等线上暗坑。
-
+- [repo_map.py](scripts/repo_map.py)：JS/TS/Vue 项目的轻量符号索引和快照检查，用法见 `--help`。
+- [themes.css](assets/themes.css)：视觉规范对应的 CSS 变量，可直接复制或映射到组件库主题。
+- [accent.py](scripts/accent.py)：输入一个品牌色，生成强调色的四个配套值（浅色和深色）并检查对比度。
+- [sync_skill.py](scripts/sync_skill.py)：只在安装或维护本 skill 时使用，见 [README](README.md#同步与安装校验)。

@@ -1,0 +1,20 @@
+[
+  {
+    "command": "npm run test",
+    "exit_code": 0,
+    "status": "passed",
+    "log": "test.log"
+  },
+  {
+    "command": "npm run lint",
+    "exit_code": 0,
+    "status": "passed",
+    "log": "lint.log"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "status": "passed",
+    "log": "build.log"
+  }
+]

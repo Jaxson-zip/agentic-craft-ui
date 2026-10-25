@@ -1,0 +1,267 @@
+{
+  "date": "2026-10-13",
+  "scope": "frontend comparison, in-memory fixture only",
+  "checks": {
+    "studio_status_save": {
+      "issue": "RE-142",
+      "before": "doing",
+      "after": "done",
+      "completion_before": "5/12",
+      "completion_after": "6/12",
+      "focus_return": "RE-142"
+    },
+    "escape_discard": {
+      "draft": "未保存的草稿",
+      "persisted_title": "复核工作区权限与成员邀请流程",
+      "focus_return": "RE-142"
+    },
+    "empty_search": {
+      "query": "不存在的事项",
+      "clear_filters_restores": true
+    },
+    "keyboard_filter": {
+      "keys": [
+        "ArrowDown",
+        "ArrowDown",
+        "Enter"
+      ],
+      "selected": "进行中 · 3"
+    },
+    "filtered_save": {
+      "focus": "workspace",
+      "progress": "任务列表6 / 1250%",
+      "savedRowVisible": false,
+      "toast": "RE-142 已保存",
+      "visibleRows": 2
+    },
+    "dialog_keyboard": {
+      "shift_tab_wrap": "取消",
+      "inside_dialog": true,
+      "escape_select_keeps_dialog": true
+    }
+  },
+  "motion": {
+    "expressive_sample": {
+      "opacity": 0.468883,
+      "translateY": 7.43554,
+      "ring_fraction": 0.10179485282909204
+    },
+    "reduced_sample": {
+      "opacity": 1,
+      "transform": "none",
+      "ring_fraction": 0.4166666666666667,
+      "drawer_transform": "none"
+    },
+    "calm_drawer": {
+      "opacity": "1",
+      "transform": "none"
+    },
+    "graphite_tuning": {
+      "configured": {
+        "calm": {
+          "drawer": "fixed-position opacity",
+          "drawer_seconds": 0.18,
+          "rows_distance": 2,
+          "rows_seconds": 0.14
+        },
+        "expressive": {
+          "drawer": "fixed-position opacity + 8% edge reveal",
+          "drawer_seconds": 0.28,
+          "rows_distance": 6,
+          "rows_seconds": 0.28,
+          "max_stagger_seconds": 0.08
+        },
+        "overlay_seconds": 0.16
+      },
+      "observed": {
+        "expressive_initial": {
+          "design": "product graphite",
+          "opacity": "0",
+          "rhythm": "expressive",
+          "transform": "matrix(1, 0, 0, 1, 56, 0)"
+        },
+        "calm_initial": {
+          "opacity": "0",
+          "rhythm": "calm",
+          "transform": "matrix(1, 0, 0, 1, 12, 0)"
+        },
+        "reduced": {
+          "opacity": "0",
+          "reduced": "true",
+          "transform": "none"
+        }
+      },
+      "limitation": "Early moving-panel close failure reproduced once, then fixed for Graphite by anchoring interactive controls; three during-transition close checks passed. No broad stress or FPS measurement.",
+      "rapid_close_results": [
+        {
+          "entering": {
+            "clip": "inset(0px 0px 0px 0.334614%)",
+            "opacity": "0.958173",
+            "transform": "none"
+          },
+          "after": {
+            "dialog": false,
+            "focus": "RE-142"
+          }
+        },
+        {
+          "entering": {
+            "clip": "inset(0px 0px 0px 0.216938%)",
+            "opacity": "0.972883",
+            "transform": "none"
+          },
+          "after": {
+            "dialog": false,
+            "focus": "RE-142"
+          }
+        },
+        {
+          "entering": {
+            "clip": "inset(0px 0px 0px 0.306223%)",
+            "opacity": "0.961722",
+            "transform": "none"
+          },
+          "after": {
+            "dialog": false,
+            "focus": "RE-142"
+          }
+        }
+      ],
+      "reduced_final": {
+        "clip": "inset(0px 0px 0px 0%)",
+        "opacity": "1",
+        "reduced": "true",
+        "transform": "none"
+      }
+    }
+  },
+  "responsive": [
+    {
+      "design": "graphite",
+      "project_selector": "flex",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "design": "graphite",
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "columns": "267px",
+      "design": "studio",
+      "h1Height": 39.640625,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "columns": "337px",
+      "design": "studio",
+      "scrollWidth": 375,
+      "width": 390
+    }
+  ],
+  "studio_contrast": [
+    {
+      "background": "rgb(250, 248, 243)",
+      "color": "rgb(52, 54, 47)",
+      "contrast": 11.54,
+      "selector": ".product",
+      "size": "14px"
+    },
+    {
+      "background": "rgb(255, 254, 250)",
+      "color": "rgb(52, 54, 47)",
+      "contrast": 12.14,
+      "selector": ".issue-card h3",
+      "size": "15px"
+    },
+    {
+      "background": "rgb(255, 254, 250)",
+      "color": "rgb(106, 110, 98)",
+      "contrast": 5.18,
+      "selector": ".card-project",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(255, 254, 250)",
+      "color": "rgb(106, 110, 98)",
+      "contrast": 5.18,
+      "selector": ".card-bottom",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(255, 254, 250)",
+      "color": "rgb(112, 118, 103)",
+      "contrast": 4.65,
+      "selector": ".issue-id",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(243, 226, 211)",
+      "color": "rgb(173, 78, 39)",
+      "contrast": 4.27,
+      "selector": ".studio-nav nav button[aria-pressed=\"true\"]",
+      "size": "12px"
+    }
+  ],
+  "graphite_contrast": [
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(39, 41, 49)",
+      "contrast": 14.5,
+      "selector": ".product",
+      "size": "14px"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(39, 41, 49)",
+      "contrast": 14.5,
+      "selector": ".row-title",
+      "size": "14px"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(101, 105, 116)",
+      "contrast": 5.49,
+      "selector": ".row-project",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(101, 105, 116)",
+      "contrast": 5.49,
+      "selector": ".row-status",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(101, 105, 116)",
+      "contrast": 5.49,
+      "selector": ".issue-id",
+      "size": "11px"
+    },
+    {
+      "background": "rgb(232, 229, 243)",
+      "color": "rgb(80, 66, 148)",
+      "contrast": 6.65,
+      "selector": ".side-nav button[aria-pressed=\"true\"]",
+      "size": "13px"
+    }
+  ],
+  "studio_selected_fixed": {
+    "background": "rgb(243, 226, 211)",
+    "color": "rgb(158, 69, 34)",
+    "contrast": 5
+  },
+  "desktop": {
+    "rows": 12,
+    "scrollWidth": 1345,
+    "width": 1360
+  },
+  "console_errors": [],
+  "user_decision": {
+    "visual": "Graphite selected",
+    "motion": "continue tuning; not approved"
+  }
+}
