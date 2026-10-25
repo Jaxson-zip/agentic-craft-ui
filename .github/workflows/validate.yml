@@ -29,3 +29,4 @@ jobs:
         run: |
           python -X utf8 scripts/repo_map.py --help
           python -X utf8 scripts/sync_skill.py --help
+          python -X utf8 scripts/accent.py --help

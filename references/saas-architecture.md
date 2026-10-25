@@ -2,6 +2,17 @@
 
 用于多租户、跨业务领域、共享授权或有独立 API/worker 的系统。任务仅改一个现有页面时，沿既有边界调查，不自动开展全产品重建。这里补充 [架构与上下文](architecture-context.md)，不绑定语言、框架、数据库或部署供应商。
 
+## 默认步骤
+
+按顺序推进；后面各节是每一步的细则和常见误区。
+
+1. 提取租户模型、身份、角色与资源权限、关键不变量和运行约束；未知项标为假设。
+2. 新系统先按生态调研决定复用，再划分业务模块和数据所有者。
+3. 只画需要的视角（运行单元、领域、ER、时序），每张图标注状态。
+4. 定义写操作的事务、并发、幂等和异步副作用边界。
+5. 打通一条跨过真实边界的纵向路径，用两个租户、多个角色验证隔离与恢复。
+6. 分别报告设计、功能、隔离、恢复、UI 和性能证据。
+
 ## 先确定系统约束
 
 从需求和现状提取实际的租户模型、主体身份、角色/资源权限、关键业务不变量、数据规模与保留策略、外部集成、运行环境及团队约束。规模未知时标明假设与测量计划，不编造 QPS、SLA 或容量结论。
@@ -70,6 +81,6 @@ webhook 使用提供方规定的验证与事件标识，将可信外部账号映
 
 交付分别列出设计评审、功能、隔离/授权、恢复、UI 和性能证据。图纸完整不能证明实现可用；一条闭环通过也不能称整套大型 SaaS 已验证。采用 [验收与交付](delivery.md) 的状态区分。
 
-处理器级 Request/Response 测试可验证模块集成与持久化，但尚未覆盖 HTTP 服务、浏览器 cookie 行为、反向代理或 UI 联调。分别标注，不把处理器测试命名为完整端到端验收。成熟身份/组织模块的限定实验与实际发现见 [复用集成验证](../docs/REUSE_INTEGRATION_CASE.md)。
+处理器级 Request/Response 测试可验证模块集成与持久化，但尚未覆盖 HTTP 服务、浏览器 cookie 行为、反向代理或 UI 联调。分别标注，不把处理器测试命名为完整端到端验收。成熟身份/组织模块的限定实验与实际发现见 [复用集成验证](https://github.com/Jaxson-zip/agentic-craft-ui/blob/main/docs/REUSE_INTEGRATION_CASE.md)。
 
-具体的本地纵向切片及图见 [SaaS 架构案例](../docs/SAAS_ARCHITECTURE_CASE.md)；尚未执行的冷启动评估见 [SaaS 行为场景](../tests/behavior/saas.md)。切片只证明记录中的限定路径，不能升级为大型 SaaS 生产验证。
+本地纵向切片及图见源码仓库的 [SaaS 架构案例](https://github.com/Jaxson-zip/agentic-craft-ui/blob/main/docs/SAAS_ARCHITECTURE_CASE.md)；尚未执行的冷启动评估见 [SaaS 行为场景](https://github.com/Jaxson-zip/agentic-craft-ui/blob/main/tests/behavior/saas.md)（安装包不含 docs/ 与 tests/）。切片只证明记录中的限定路径，不能升级为大型 SaaS 生产验证。

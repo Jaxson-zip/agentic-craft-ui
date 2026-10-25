@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAF9">
+<title>示例 · 灵感收集箱</title>
+<link rel="stylesheet" href="fonts/misans.css">
+<link rel="stylesheet" href="themes.css">
+<style>
+  * { box-sizing: border-box; }
+  html { background: var(--bg-page); }
+  body {
+    margin: 0; min-height: 100vh;
+    font-family: var(--font-sans); font-size: var(--text-base); line-height: 1.7;
+    color: var(--text-primary); background: var(--bg-page);
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { touch-action: manipulation; }
+  kbd { font-family: var(--font-sans); font-size: 11px; padding: 1px 6px; border-radius: 6px; background: var(--bg-muted); color: var(--text-muted); box-shadow: inset 0 -1px 0 var(--border-subtle); }
+
+  .app { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+
+  /* 侧栏：安静，只负责导航 */
+  .side { position: sticky; top: 0; height: 100vh; padding: var(--space-5) var(--space-4); border-right: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: var(--space-5); }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: var(--text-md); padding: 0 var(--space-2); }
+  .logo svg { width: 26px; height: 26px; }
+  .search { display: flex; align-items: center; gap: var(--space-2); width: 100%; padding: 7px 10px; border: 0; border-radius: var(--radius-sm); background: var(--bg-muted); color: var(--text-muted); font-size: var(--text-sm); cursor: pointer; transition: background-color var(--dur-fast) var(--ease-out); }
+  .search:hover { background: var(--border-subtle); }
+  .search kbd { margin-left: auto; background: var(--bg-card); }
+  .nav-title { margin: 0 0 var(--space-1); padding: 0 var(--space-2); font-size: var(--text-xs); color: var(--text-muted); }
+  .nav { display: grid; gap: 2px; }
+  .nav button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px var(--space-2); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); text-align: left; cursor: pointer; transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+  .nav button:hover { background: var(--bg-muted); color: var(--text-primary); }
+  .nav button[aria-current="true"] { background: var(--bg-card); color: var(--text-primary); font-weight: 500; box-shadow: var(--shadow-1); }
+  .nav .count { margin-left: auto; font-size: var(--text-xs); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .nav .hash { color: var(--text-muted); width: 16px; text-align: center; }
+  .side-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--space-2); font-size: var(--text-xs); color: var(--text-muted); }
+  .icon-btn { width: 32px; height: 32px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-muted); cursor: pointer; display: grid; place-items: center; transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out); }
+  .icon-btn:hover { background: var(--bg-muted); color: var(--text-primary); }
+  .icon-btn:active { transform: scale(0.92); }
+  .icon-btn svg { width: 17px; height: 17px; }
+  :is(.icon-btn, .search, .nav button, .note, .chip, .cmd-item):focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  /* 主区：一栏，阅读宽度 */
+  .main { width: 100%; max-width: 720px; margin: 0 auto; padding: var(--space-7) var(--space-5) 120px; }
+  .head h1 { margin: 0; font-size: var(--text-xl); font-weight: 600; letter-spacing: 0.01em; }
+  .head h1 em { font-style: normal; color: var(--accent); }
+  .head p { margin: 4px 0 0; color: var(--text-muted); font-size: var(--text-sm); }
+
+  .capture { margin-top: var(--space-5); background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: var(--shadow-1); padding: 14px 16px 10px; transition: box-shadow var(--dur-base) var(--ease-out); }
+  .capture:focus-within { box-shadow: 0 0 0 1px var(--accent), 0 0 0 4px var(--accent-soft), 0 8px 24px rgba(28, 25, 23, 0.06); }
+  .capture textarea { display: block; width: 100%; min-height: 52px; max-height: 240px; border: 0; outline: 0; resize: none; background: transparent; line-height: 1.7; }
+  .capture textarea::placeholder { color: var(--field-placeholder); }
+  .capture-bar { display: flex; align-items: center; gap: var(--space-2); margin-top: 6px; font-size: var(--text-xs); color: var(--text-muted); }
+  .capture-bar .craft-action { margin-left: auto; min-height: 32px; padding: 4px 14px; border-radius: var(--radius-sm); font-size: var(--text-sm); }
+
+  .list { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+  .note { position: relative; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--bg-card); box-shadow: var(--shadow-1); transition: box-shadow var(--dur-base) var(--ease-out); }
+  .note:hover { box-shadow: var(--shadow-2); }
+  .note p { margin: 0; padding-right: 60px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .note-meta { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: var(--text-xs); color: var(--text-muted); }
+  .chip { border: 0; padding: 1px 8px; border-radius: var(--radius-full); background: var(--bg-muted); color: var(--text-secondary); font-size: var(--text-xs); cursor: pointer; transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+  .chip:hover, .chip.on { background: var(--accent-soft); color: var(--accent-text); }
+  .pin { color: var(--accent); }
+  .note-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 2px; opacity: 0; transform: translateY(-2px); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+  .note:hover .note-actions, .note:focus-within .note-actions { opacity: 1; transform: none; }
+  .note-actions .icon-btn { width: 28px; height: 28px; background: var(--bg-card); }
+  .empty { padding: var(--space-7) 0; text-align: center; color: var(--text-muted); font-size: var(--text-sm); }
+  .empty svg { width: 96px; height: 96px; display: block; margin: 0 auto var(--space-3); }
+
+  /* 命令面板：Ctrl/⌘ + K */
+  .cmd-scrim { position: fixed; inset: 0; background: rgba(28, 25, 23, 0.18); opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease-out); }
+  .cmd-scrim.on { opacity: 1; pointer-events: auto; }
+  .cmd { position: fixed; left: 50%; top: 18vh; width: min(560px, calc(100vw - 32px)); transform: translateX(-50%) scale(0.97); opacity: 0; pointer-events: none; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: var(--shadow-3); overflow: hidden; transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring); }
+  .cmd.on { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
+  .cmd input { width: 100%; padding: 16px 18px; border: 0; border-bottom: 1px solid var(--border-subtle); outline: 0; background: transparent; font-size: var(--text-md); }
+  .cmd-list { max-height: 320px; overflow: auto; padding: 6px; overscroll-behavior: contain; }
+  .cmd-group { padding: 8px 12px 4px; font-size: var(--text-xs); color: var(--text-muted); }
+  .cmd-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 12px; border: 0; border-radius: var(--radius-sm); background: transparent; text-align: left; cursor: pointer; }
+  .cmd-item[aria-selected="true"] { background: var(--bg-muted); }
+  .cmd-item span:first-child { flex: none; width: 18px; text-align: center; color: var(--text-muted); }
+  .cmd-item .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cmd-item kbd { margin-left: auto; }
+  .cmd-foot { display: flex; gap: var(--space-4); padding: 8px 14px; border-top: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted); }
+
+  .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: var(--space-4); padding: 8px 8px 8px 16px; border-radius: var(--radius-md); background: var(--brand-primary); color: var(--on-brand); font-size: var(--text-sm); box-shadow: var(--shadow-3); transform: translate(-50%, 12px); opacity: 0; pointer-events: none; transition: transform 380ms var(--ease-spring), opacity var(--dur-fast) var(--ease-out); }
+  .toast.on { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .toast button { border: 0; border-radius: var(--radius-sm); padding: 4px 12px; background: rgba(255, 255, 255, 0.14); color: inherit; font-weight: 500; cursor: pointer; }
+  [data-theme="dark"] .toast button { background: rgba(0, 0, 0, 0.08); }
+
+  .mobile-bar { display: none; }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .mobile-bar { position: sticky; top: 0; z-index: 2; display: grid; gap: var(--space-2); padding: 12px var(--space-4) 10px; background: color-mix(in srgb, var(--bg-page) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle); }
+    .mobile-row { display: flex; align-items: center; justify-content: space-between; }
+    .chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--space-4) * -1); padding: 0 var(--space-4); }
+    .chips .chip { flex: none; padding: 4px 12px; font-size: var(--text-sm); }
+    .main { padding: var(--space-5) var(--space-4) 120px; }
+    .note-actions { opacity: 1; transform: none; }
+    .cmd { top: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="导航">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="9" fill="var(--text-primary)"/><path d="M10 17.5c2.4 2.2 5 3.2 8 2.6M12 11.5h.01M20 11.5h.01" stroke="var(--bg-card)" stroke-width="2.6" stroke-linecap="round"/><circle cx="24.5" cy="7.5" r="3.5" fill="var(--accent)"/></svg>
+      灵感收集箱
+    </div>
+    <button class="search" type="button" data-cmd>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      搜索或执行命令<kbd id="kbd">Ctrl K</kbd>
+    </button>
+    <div>
+      <p class="nav-title">收集箱</p>
+      <nav class="nav" id="nav-main"></nav>
+    </div>
+    <div>
+      <p class="nav-title">标签</p>
+      <nav class="nav" id="nav-tags"></nav>
+    </div>
+    <div class="side-foot">
+      <span>数据只存在本页</span>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 13a9 9 0 1 1-10-10 7 7 0 0 0 10 10z"/></svg></button>
+    </div>
+  </aside>
+
+  <div>
+    <div class="mobile-bar">
+      <div class="mobile-row">
+        <div class="logo" style="padding:0">灵感收集箱</div>
+        <div style="display:flex;gap:4px">
+          <button class="icon-btn" type="button" data-cmd aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 13a9 9 0 1 1-10-10 7 7 0 0 0 10 10z"/></svg></button>
+        </div>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <main class="main">
+      <header class="head">
+        <h1 id="title">全部想法</h1>
+        <p id="subtitle"></p>
+      </header>
+
+      <form class="capture" id="capture">
+        <label for="input" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">记下一个想法</label>
+        <textarea id="input" rows="2" placeholder="记下一个想法…  用 #标签 分类，回车保存"></textarea>
+        <div class="capture-bar">
+          <span><kbd>Enter</kbd> 保存 · <kbd>Shift Enter</kbd> 换行</span>
+          <button class="craft-action" type="submit">记下</button>
+        </div>
+      </form>
+
+      <section class="list" id="list" aria-live="polite"></section>
+    </main>
+  </div>
+</div>
+
+<div class="cmd-scrim" id="cmd-scrim"></div>
+<div class="cmd" id="cmd" role="dialog" aria-modal="true" aria-label="命令面板">
+  <input id="cmd-input" placeholder="搜索想法、标签或命令…" autocomplete="off" role="combobox" aria-controls="cmd-list" aria-expanded="true">
+  <div class="cmd-list" id="cmd-list" role="listbox"></div>
+  <div class="cmd-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> 选择</span><span><kbd>Enter</kbd> 打开</span><span><kbd>Esc</kbd> 关闭</span></div>
+</div>
+<div class="toast" id="toast" role="status"><span id="toast-text"></span><button type="button" id="undo">撤销</button></div>
+
+<script>
+  // 演示数据：只存在内存里，刷新后恢复
+  const now = Date.now(), MIN = 60e3, HOUR = 60 * MIN, DAY = 24 * HOUR;
+  let notes = [
+    { id: 1, text: '周末把博客的深色模式修一下，代码块的背景太亮了', tags: ['博客'], at: now - 12 * MIN, pinned: true },
+    { id: 2, text: 'AI 总结 RSS 的点子：每天早上只推 3 条，附一句为什么值得看', tags: ['点子', 'AI'], at: now - 2 * HOUR },
+    { id: 3, text: '读《设计心理学》：示能和意符。按钮要看起来就能按，而不是靠文字说明', tags: ['读书'], at: now - 5 * HOUR },
+    { id: 4, text: '小账本加一个导出 CSV，月底对账方便', tags: ['项目'], at: now - DAY - 3 * HOUR },
+    { id: 5, text: '作品集首页只放 3 个项目，每个配一张真实截图和一句话', tags: ['作品集', '点子'], at: now - 2 * DAY },
+    { id: 6, text: '试试 MiSans 做中文界面字体，数字和中文终于是一套了', tags: ['设计'], at: now - 4 * DAY }
+  ];
+  let nextId = 7, view = { type: 'all' }, removed = null;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ago = (t) => {
+    const d = now - t + (Date.now() - now);
+    if (d < MIN) return '刚刚';
+    if (d < HOUR) return Math.floor(d / MIN) + ' 分钟前';
+    if (d < DAY) return Math.floor(d / HOUR) + ' 小时前';
+    if (d < 2 * DAY) return '昨天';
+    const x = new Date(t); return `${x.getMonth() + 1}月${x.getDate()}日`;
+  };
+  if (/Mac|iPhone|iPad/.test(navigator.platform)) $('kbd').textContent = '⌘ K';
+
+  function allTags() {
+    const map = new Map();
+    notes.forEach((n) => n.tags.forEach((t) => map.set(t, (map.get(t) || 0) + 1)));
+    return [...map].sort((a, b) => b[1] - a[1]);
+  }
+  function visible() {
+    let list = notes;
+    if (view.type === 'tag') list = list.filter((n) => n.tags.includes(view.tag));
+    if (view.type === 'today') list = list.filter((n) => now - n.at < DAY);
+    return [...list].sort((a, b) => (b.pinned - a.pinned) || (b.at - a.at));
+  }
+
+  // FLIP：记录位置 → 改 DOM → 从旧位置平滑移动到新位置
+  function flip(mutate, enterFrom) {
+    const before = new Map([...document.querySelectorAll('.note')].map((el) => [el.dataset.id, el.getBoundingClientRect()]));
+    mutate();
+    if (reduce) return;
+    document.querySelectorAll('.note').forEach((el) => {
+      const was = before.get(el.dataset.id), is = el.getBoundingClientRect();
+      if (was) {
+        const dy = was.top - is.top;
+        if (dy) el.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+      } else if (enterFrom && el.dataset.id === String(enterFrom.id)) {
+        // 新记下的一条从输入框的位置“落”进列表
+        const r = enterFrom.rect;
+        el.animate([
+          { transform: `translateY(${r.top - is.top}px) scale(${r.width / is.width})`, opacity: 0.4 },
+          { transform: 'none', opacity: 1 }
+        ], { duration: 420, easing: 'cubic-bezier(0.34, 1.25, 0.64, 1)' });
+      } else {
+        el.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'ease-out' });
+      }
+    });
+  }
+
+  function render() {
+    const tags = allTags();
+    const todayCount = notes.filter((n) => now - n.at < DAY).length;
+    const navBtn = (v, label, count, icon) => {
+      const on = view.type === v.type && view.tag === v.tag;
+      return `<button type="button" data-view='${JSON.stringify(v)}' aria-current="${on}">${icon}<span>${esc(label)}</span><span class="count">${count}</span></button>`;
+    };
+    $('nav-main').innerHTML =
+      navBtn({ type: 'all' }, '全部想法', notes.length, '<span class="hash">◎</span>') +
+      navBtn({ type: 'today' }, '今天', todayCount, '<span class="hash">☀</span>');
+    $('nav-tags').innerHTML = tags.map(([t, c]) => navBtn({ type: 'tag', tag: t }, t, c, '<span class="hash">#</span>')).join('');
+    $('chips').innerHTML = [['全部', { type: 'all' }], ['今天', { type: 'today' }], ...tags.map(([t]) => ['#' + t, { type: 'tag', tag: t }])]
+      .map(([label, v]) => `<button class="chip${view.type === v.type && view.tag === v.tag ? ' on' : ''}" type="button" data-view='${JSON.stringify(v)}'>${esc(label)}</button>`).join('');
+
+    const title = view.type === 'tag' ? `<em>#</em>${esc(view.tag)}` : view.type === 'today' ? '今天' : '全部想法';
+    $('title').innerHTML = title;
+    const list = visible();
+    $('subtitle').textContent = view.type === 'all' ? `今天记了 ${todayCount} 条，一共 ${notes.length} 条` : `${list.length} 条`;
+    $('list').innerHTML = list.length ? list.map((n) => `
+      <article class="note" data-id="${n.id}" tabindex="-1">
+        <p>${esc(n.text)}</p>
+        <div class="note-meta">
+          ${n.pinned ? '<span class="pin" aria-label="已置顶">●</span>' : ''}
+          <span>${ago(n.at)}</span>
+          ${n.tags.map((t) => `<button class="chip${view.tag === t ? ' on' : ''}" type="button" data-view='${JSON.stringify({ type: 'tag', tag: t })}'>#${esc(t)}</button>`).join('')}
+        </div>
+        <div class="note-actions">
+          <button class="icon-btn" type="button" data-pin="${n.id}" aria-label="${n.pinned ? '取消置顶' : '置顶'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 3h6l-1 6 3 3H7l3-3z"/></svg></button>
+          <button class="icon-btn" type="button" data-del="${n.id}" aria-label="删除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        </div>
+      </article>`).join('') : `<div class="empty">
+        <svg viewBox="0 0 96 96" fill="none" stroke="var(--border-strong)" stroke-width="2" stroke-linecap="round"><rect x="18" y="26" width="60" height="48" rx="12" fill="var(--bg-card)"/><path d="M30 44h36M30 56h22"/><circle cx="70" cy="24" r="8" fill="var(--accent-soft)" stroke="var(--accent)"/></svg>
+        这里还空着。在上面写下第一条想法吧。</div>`;
+  }
+
+  function go(v) { flip(() => { view = v; render(); }); }
+  document.addEventListener('click', (e) => {
+    const v = e.target.closest('[data-view]');
+    if (v) return go(JSON.parse(v.dataset.view));
+    const p = e.target.closest('[data-pin]');
+    if (p) { const n = notes.find((x) => x.id === Number(p.dataset.pin)); return flip(() => { n.pinned = !n.pinned; render(); }); }
+    const d = e.target.closest('[data-del]');
+    if (d) return removeNote(Number(d.dataset.del));
+    if (e.target.closest('[data-cmd]')) return openCmd();
+    if (e.target.closest('[data-theme-toggle]')) return toggleTheme();
+  });
+
+  // 快速记录：回车保存，#标签 自动识别
+  const input = $('input');
+  const autosize = () => { input.style.height = 'auto'; input.style.height = input.scrollHeight + 'px'; };
+  input.addEventListener('input', autosize);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); save(); } });
+  $('capture').addEventListener('submit', (e) => { e.preventDefault(); save(); });
+  function save() {
+    const raw = input.value.trim();
+    if (!raw) { input.focus(); return; }
+    const tags = [...new Set([...raw.matchAll(/#([^\s#]+)/g)].map((m) => m[1]))];
+    const text = raw.replace(/#[^\s#]+/g, '').replace(/\s{2,}/g, ' ').trim() || raw;
+    const note = { id: nextId++, text, tags, at: Date.now() };
+    const rect = $('capture').getBoundingClientRect();
+    if (view.type === 'tag' && !tags.includes(view.tag)) view = { type: 'all' };
+    flip(() => { notes.unshift(note); render(); }, { id: note.id, rect });
+    input.value = ''; autosize(); input.focus();
+  }
+
+  function removeNote(id) {
+    const i = notes.findIndex((n) => n.id === id);
+    const token = { note: notes[i], index: i, cancelled: false };
+    removed = token;
+    // 淡出后再移除；动画没结束就点了撤销，则不再移除
+    let finished = false;
+    const finish = () => {
+      if (finished || token.cancelled) return;
+      finished = true;
+      flip(() => { const k = notes.indexOf(token.note); if (k > -1) notes.splice(k, 1); render(); });
+    };
+    const el = document.querySelector(`.note[data-id="${id}"]`);
+    if (el && !reduce) {
+      el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(0.97)' }], { duration: 160, easing: 'ease-in', fill: 'forwards' }).finished.then(finish);
+      setTimeout(finish, 240);
+    } else finish();
+    toast('已删除 1 条想法');
+  }
+  $('undo').addEventListener('click', () => {
+    if (!removed) return;
+    const { note, index } = removed;
+    removed.cancelled = true;
+    removed = null;
+    flip(() => { if (!notes.includes(note)) notes.splice(index, 0, note); render(); });
+    $('toast').classList.remove('on');
+  });
+  let toastTimer;
+  function toast(text) {
+    $('toast-text').textContent = text;
+    $('toast').classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $('toast').classList.remove('on'), 5000);
+  }
+
+  // 命令面板：搜想法、跳标签、执行命令，全程键盘
+  let cmdItems = [], cmdIndex = 0, cmdOpener = null;
+  function cmdData(q) {
+    q = q.trim().toLowerCase();
+    const match = (s) => !q || s.toLowerCase().includes(q.replace(/^#/, ''));
+    const actions = [
+      { group: '命令', icon: '+', label: '记下新想法', run: () => input.focus(), key: 'Enter' },
+      { group: '命令', icon: '◐', label: '切换深色 / 浅色', run: toggleTheme },
+      { group: '命令', icon: '◎', label: '查看全部想法', run: () => go({ type: 'all' }) }
+    ].filter((a) => match(a.label));
+    const tags = allTags().filter(([t]) => match(t)).map(([t, c]) => ({ group: '标签', icon: '#', label: `${t}（${c}）`, run: () => go({ type: 'tag', tag: t }) }));
+    const found = notes.filter((n) => q && (match(n.text) || n.tags.some(match))).slice(0, 6)
+      .map((n) => ({ group: '想法', icon: '·', label: n.text, run: () => {
+        go({ type: 'all' });
+        const el = document.querySelector(`.note[data-id="${n.id}"]`);
+        el.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+        el.focus({ preventScroll: true });
+        el.animate([{ boxShadow: '0 0 0 2px var(--accent)' }, { boxShadow: '0 0 0 0 transparent' }], { duration: 1200 });
+      } }));
+    return [...found, ...tags, ...actions];
+  }
+  function renderCmd() {
+    cmdItems = cmdData($('cmd-input').value);
+    cmdIndex = Math.min(cmdIndex, Math.max(0, cmdItems.length - 1));
+    let last = '';
+    $('cmd-list').innerHTML = cmdItems.length ? cmdItems.map((it, i) => {
+      const head = it.group !== last ? `<div class="cmd-group">${it.group}</div>` : '';
+      last = it.group;
+      return `${head}<button class="cmd-item" type="button" role="option" id="cmd-${i}" data-i="${i}" aria-selected="${i === cmdIndex}"><span>${it.icon}</span><span class="txt">${esc(it.label)}</span></button>`;
+    }).join('') : '<div class="cmd-group">没有找到，回车把它记成一条新想法</div>';
+    $('cmd-input').setAttribute('aria-activedescendant', cmdItems.length ? 'cmd-' + cmdIndex : '');
+    document.getElementById('cmd-' + cmdIndex)?.scrollIntoView({ block: 'nearest' });
+  }
+  function openCmd() {
+    cmdOpener = document.activeElement;
+    $('cmd-input').value = ''; cmdIndex = 0; renderCmd();
+    $('cmd').classList.add('on'); $('cmd-scrim').classList.add('on');
+    $('cmd-input').focus();
+  }
+  function closeCmd() {
+    $('cmd').classList.remove('on'); $('cmd-scrim').classList.remove('on');
+    if (cmdOpener && document.contains(cmdOpener)) cmdOpener.focus();
+  }
+  function runCmd(i) {
+    const it = cmdItems[i];
+    const q = $('cmd-input').value.trim();
+    closeCmd();
+    if (it) it.run();
+    else if (q) { input.value = q; save(); }
+  }
+  $('cmd-input').addEventListener('input', () => { cmdIndex = 0; renderCmd(); });
+  $('cmd-input').addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); cmdIndex = Math.min(cmdIndex + 1, cmdItems.length - 1); renderCmd(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); cmdIndex = Math.max(cmdIndex - 1, 0); renderCmd(); }
+    if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); runCmd(cmdIndex); }
+  });
+  $('cmd-list').addEventListener('click', (e) => { const b = e.target.closest('.cmd-item'); if (b) runCmd(Number(b.dataset.i)); });
+  $('cmd-list').addEventListener('pointermove', (e) => { const b = e.target.closest('.cmd-item'); if (b && Number(b.dataset.i) !== cmdIndex) { cmdIndex = Number(b.dataset.i); renderCmd(); } });
+  $('cmd-scrim').addEventListener('click', closeCmd);
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); $('cmd').classList.contains('on') ? closeCmd() : openCmd(); }
+    if (e.key === 'Escape' && $('cmd').classList.contains('on')) closeCmd();
+  });
+
+  function toggleTheme() {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0C0A09' : '#FAFAF9';
+  }
+
+  render();
+  document.querySelectorAll('.note').forEach((el, i) => !reduce && el.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 360, delay: i * 40, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }));
+</script>
+</body>
+</html>

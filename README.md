@@ -1,32 +1,18 @@
 # Agentic Craft UI
 
-面向独立开发者的产品原型、全栈功能和已有应用改造工作流。帮助 Agent 把用户路径、契约、实现和验收串起来，减少架构漂移与无效上下文加载。
+面向独立开发者的 Agent Skill：让 AI 为**中国用户**做出好看、好用、真能跑的网页、微信小程序和 App，并如实说明做到了哪一步。
 
-它由 Agent Skills 格式的指令、按需参考、可选视觉资源和 Python 标准库脚本组成。流程由宿主 Agent 执行；本仓库没有后台调度服务、文件权限执行器或自动部署系统。
+它由 Agent Skills 格式的指令、按需参考、视觉 tokens、示例页面和 Python 标准库脚本组成。流程由宿主 Agent 执行；本仓库没有后台调度服务、权限执行器或自动部署系统。
 
-## 适用场景
+## 解决什么问题
 
-| 场景 | 入口 |
+| 问题 | skill 怎么做 |
 | --- | --- |
-| 新产品、重要路线变化 | 先比较完整产品/服务、验证关键可行性，再实现确有缺口的部分 |
-| 已定路线的较大交互变化 | UI-First：先验证可点击原型，逐步落实契约和真实数据 |
-| 多租户 SaaS、跨领域系统 | 先确定身份、领域与数据边界，再贯通纵向业务路径；维护架构图及对应证据 |
-| 纯后端、CLI、算法 | Logic-First：输入输出、错误和核心行为先行 |
-| 已有应用改造 | Brownfield：复用既有栈，定向定位，渐进替换 |
-| 小修复 | 精简路径，跳过完整原型、架构图和团队设置 |
-
-根据用户、任务、内容密度与平台特征推导视觉方向（如高密度专业工作台、纯净业务系统、消费端内容界面，或严格沿用既有设计系统），不设单一强制默认风格。不会因风格推导自动引入动画库、样式库或外部框架。
-
-## 有什么改进
-
-- 主 `SKILL.md` 保留分流和决策规则；UI、架构、协作、验收细则按需加载。
-- 复杂或持续任务用既有文档保留核心结果、已选方向、实际证据及下一步；开始扩建与交付前核对，避免长会话中用外围进展替代原目标。小修复不强制新建文件。
-- 新产品与重要选型先澄清交付、已有答案及待定约束，先评估现有系统和成熟业务底座，再考虑 starter、单项模块与未覆盖的差异；采用几个库不代表已完成复用选型。测试也要说明假设与边界，不能成为默认自建的理由。
-- 架构快照有范围、依据和更新规则，源码变化时重新核对；不要求永久相信旧地图。
-- 采用项目现有包管理器与检查命令，不统一强制 Biome、Zod、TypeScript 或 npm。
-- 多 Agent 按任务独立性与宿主能力选择，写入范围是协作约定，实际隔离取决于宿主工具。
-- 验收区分静态检查、运行时契约、业务结果、真实 UI 和生产构建；保留失败与受阻项。
-- 已授权反馈由宿主实际修改、验证并关联原任务；技术通过交给用户验收，自动录入不代替执行。见 [限定执行案例](docs/FEEDBACK_EXECUTION_CASE.md)。
+| 界面一眼 AI、不好看 | 默认按 [视觉规范](references/visual-style.md)（浅色、近黑主按钮、一个强调色、随项目打包的中文字体，加一个招牌交互；提炼自 LobeChat、Folo、flomo 等国内独立项目）出图，用成熟组件库打底，交付前截图自查；[示例页面](assets/demo.html) 展示目标效果 |
+| 重复造轮子 | 新产品先查现成产品和底座；认证、支付、复杂控件等通用能力优先复用 |
+| AI 虚报完成 | 每项检查标明状态和证据，核心路径没跑通就说没完成；视觉由用户验收 |
+| 改老项目改乱 | 沿用现有栈和风格，读到影响范围为止，只改需要改的 |
+| 不懂国内环境 | [中国用户](references/china.md) 覆盖中文排版、国内可访问的资源、登录支付习惯、红涨绿跌和备案合规；[平台与组件库](references/platforms.md) 覆盖网页、小程序、App 的选型 |
 
 ## 目录
 
@@ -37,17 +23,24 @@ agentic-craft-ui/
 │   ├── ui.md
 │   ├── intake.md
 │   ├── discovery.md
-│   ├── visual-presets.md
+│   ├── visual-style.md
+│   ├── layouts.md
+│   ├── china.md
+│   ├── platforms.md
 │   ├── art-direction-motion.md
 │   ├── controls-and-color.md
 │   ├── architecture-context.md
 │   ├── saas-architecture.md
 │   ├── collaboration.md
-│   └── delivery.md
+│   ├── delivery.md
+│   └── templates.md
 ├── assets/
 │   ├── themes.css
-│   └── theme-preview.html
+│   ├── demo.html
+│   ├── patterns.html
+│   └── fonts/
 ├── scripts/
+│   ├── accent.py
 │   ├── repo_map.py
 │   └── sync_skill.py
 ├── tests/
@@ -56,7 +49,7 @@ agentic-craft-ui/
 
 ## 安装与使用
 
-运行 skill 时完整保留 `SKILL.md`、`references/`、`assets/` 与 `scripts/` 的相对结构。只复制主文件会丢失参考、视觉资源和工具；维护预设时还需 `tests/`，完整克隆或交付包均包含它。Skill 使用 [Agent Skills 标准](https://agentskills.io/specification)；各宿主的发现路径、工具权限与子 Agent 能力仍有差异。
+运行 skill 时完整保留 `SKILL.md`、`references/`、`assets/` 与 `scripts/` 的相对结构。只复制主文件会丢失参考、视觉资源和工具。`docs/`（案例、评估与截图证据）和 `tests/` 只用于维护本 skill，运行时不需要；维护预设时使用完整克隆。Skill 使用 [Agent Skills 标准](https://agentskills.io/specification)；各宿主的发现路径、工具权限与子 Agent 能力仍有差异。
 
 ### Codex
 
@@ -85,7 +78,7 @@ python -X utf8 scripts/sync_skill.py "$env:USERPROFILE\.codex\skills\agentic-cra
 python -X utf8 scripts/sync_skill.py "$env:USERPROFILE\.codex\skills\agentic-craft-ui" --apply --backup-dir "$env:USERPROFILE\.codex\backups\skills"
 ```
 
-工具仅复制 `SKILL.md`、`README.md`、`LICENSE` 与存在的 `references/`、`assets/`、`scripts/`、`agents/`、`docs/`、`tests/`；不复制 Git、缓存、node_modules 或根目录的其他文件。既有安装存在变更时，先在指定外部目录备份并校验，再写入和逐文件核对 SHA-256。安装目录的 `.craft-install.json` 记录来源、文件哈希与整体内容指纹，比较时仍重新读取文件，不盲信旧清单。
+默认只复制运行所需的 `SKILL.md`、`README.md`、`LICENSE` 与存在的 `references/`、`assets/`、`scripts/`、`agents/`；加 `--with-dev` 才同时复制 `docs/`、`tests/`。不复制 Git、缓存、node_modules 或根目录的其他文件。旧安装中的 `docs/`、`tests/` 在比较时会列为 extra，检查后用 `--apply --prune` 移除（先备份）。既有安装存在变更时，先在指定外部目录备份并校验，再写入和逐文件核对 SHA-256。安装目录的 `.craft-install.json` 记录来源、文件哈希与整体内容指纹，比较时仍重新读取文件，不盲信旧清单。
 
 有额外文件时默认拒绝覆盖；检查输出后，显式加 `--prune` 才会在备份成功后移除它们。拒绝源码/安装/备份路径重叠、Git 工作副本目标、链接/Windows junction，以及包中的嵌套 `SKILL.md`；历史冻结指令使用 `SKILL.snapshot.md`。备份应放在宿主技能发现目录之外，避免旧入口再次注册。工具使用逐文件替换，不承诺整棵目录原子切换或并发安装；失败时按 stderr 中的备份路径恢复。
 
@@ -107,7 +100,7 @@ python -X utf8 scripts/sync_skill.py "$env:USERPROFILE\.codex\skills\agentic-cra
 
 ## 视觉资源与复用决策
 
-可选 [配色预设](references/visual-presets.md) 提供清透浅色与冷黑深色的语义变量，含按钮前景色、状态标签与焦点色；[本地预览](assets/theme-preview.html) 不依赖网络或安装包。通过数值检查的配对不能替代实际界面验收。已有品牌、暖色阅读产品、专业侧栏布局仍按用户与任务选择，不强制蓝白、920px、双主题或固定数量的审批。
+[themes.css](assets/themes.css) 是 [视觉规范](references/visual-style.md) 的全部数值：颜色（浅色和深色）、字体、字阶、间距、圆角、阴影和动效曲线，文字与控件配色都通过了对比度测试。[示例页面](assets/demo.html) 是一个“灵感收集箱”小工具，用原生 HTML/CSS/JS 写成，不依赖网络，自带裁剪过的 MiSans 字形（约 180KB，见 [assets/fonts](assets/fonts/README.md)）；在 `assets/` 下运行 `python -m http.server` 后打开 `/demo.html` 查看。已有品牌或设计系统的项目沿用自己的规范。
 
 新产品选型和确有复用价值的任务按 [生态调研](references/discovery.md) 判断许可证、适配与维护成本；小改动、已定路线和离线任务可以直接推进。没有检索能力时如实标注，不声称已经查遍开源生态。
 

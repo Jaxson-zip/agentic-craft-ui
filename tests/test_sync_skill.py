@@ -75,7 +75,7 @@ class SyncTests(unittest.TestCase):
 
     def test_nested_skill_in_source_fails_before_writes(self):
         self.write(self.source, 'docs/history/SKILL.md', 'old entry')
-        result = self.apply()
+        result = self.apply('--with-dev')
         self.assertEqual(result.returncode, 2)
         self.assertFalse(self.target.exists())
         self.assertIn('SKILL.md', result.stderr)
@@ -151,6 +151,21 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         for name in ('.env', '.git', 'scripts/__pycache__', '.github'):
             self.assertFalse((self.target / name).exists())
+
+    def test_default_install_skips_maintenance_folders(self):
+        self.write(self.source, 'docs/CASE.md', 'case study')
+        self.write(self.source, 'tests/test_sample.py', 'regression')
+        result = self.apply()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.target / 'references/ui.md').exists())
+        self.assertFalse((self.target / 'docs').exists())
+        self.assertFalse((self.target / 'tests').exists())
+        dev = self.apply('--with-dev')
+        self.assertEqual(dev.returncode, 0, dev.stderr)
+        self.assertTrue((self.target / 'docs/CASE.md').exists())
+        self.assertTrue(json.loads((self.target / '.craft-install.json').read_text(encoding='utf-8'))['with_dev'])
+        # Going back to the runtime package treats maintenance files as extra.
+        self.assertIn('tests/test_sample.py', json.loads(self.run_sync().stdout)['extra'])
 
     def test_link_in_package_is_refused(self):
         external = self.write(self.root, 'external.txt', 'external')

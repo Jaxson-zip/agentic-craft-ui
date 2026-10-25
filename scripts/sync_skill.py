@@ -15,7 +15,9 @@ import sys
 import tempfile
 
 ROOT_FILES = ('SKILL.md', 'README.md', 'LICENSE')
-ROOT_DIRS = ('references', 'assets', 'scripts', 'agents', 'docs', 'tests')
+ROOT_DIRS = ('references', 'assets', 'scripts', 'agents')
+# Case studies, evidence and regressions are for maintaining the skill, not running it.
+DEV_DIRS = ('docs', 'tests')
 IGNORED = {'.git', '__pycache__', '.pytest_cache', 'node_modules'}
 MANIFEST = '.craft-install.json'
 
@@ -48,7 +50,7 @@ def walk_files(root):
     return result
 
 
-def package_files(source):
+def package_files(source, with_dev=False):
     if not (source / 'SKILL.md').is_file():
         raise ValueError('Source must contain SKILL.md')
     files = {}
@@ -59,7 +61,7 @@ def package_files(source):
             if not path.is_file():
                 raise ValueError('Expected a file: ' + str(path))
             files[name] = path
-    for name in ROOT_DIRS:
+    for name in ROOT_DIRS + (DEV_DIRS if with_dev else ()):
         path = source / name
         assert_plain(path)
         if path.exists() and not path.is_dir():
@@ -92,7 +94,7 @@ def atomic_write(path, content):
             os.unlink(temporary)
 
 
-def synchronize(source, destination, apply=False, prune=False, backup_dir=None):
+def synchronize(source, destination, apply=False, prune=False, backup_dir=None, with_dev=False):
     for path in (source, destination):
         assert_plain(path)
     source, destination = source.resolve(), destination.resolve()
@@ -105,7 +107,7 @@ def synchronize(source, destination, apply=False, prune=False, backup_dir=None):
     manifest_path = destination / MANIFEST
     if manifest_path.is_dir():
         raise ValueError('Manifest path is a directory: ' + str(manifest_path))
-    files = package_files(source)
+    files = package_files(source, with_dev)
     installed = walk_files(destination)
     installed.pop(MANIFEST, None)
     by_key = {path_key(name): name for name in installed}
@@ -164,7 +166,7 @@ def synchronize(source, destination, apply=False, prune=False, backup_dir=None):
     actual_by_key = {path_key(name): path for name, path in actual.items()}
     if actual_by_key.keys() != source_keys or any(digest(actual_by_key[path_key(name)]) != expected for name, expected in hashes.items()):
         raise OSError('Post-install verification failed; use the reported backup to recover')
-    manifest = {'schema': 1, 'source': str(source), 'files': hashes,
+    manifest = {'schema': 1, 'source': str(source), 'with_dev': with_dev, 'files': hashes,
                 'content_sha256': hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest()}
     manifest_bytes = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
     manifest_path = destination / MANIFEST
@@ -181,9 +183,10 @@ def main():
     parser.add_argument('--apply', action='store_true', help='Install; default is a read-only comparison')
     parser.add_argument('--prune', action='store_true', help='With --apply, remove extra files after a verified backup')
     parser.add_argument('--backup-dir', type=Path, help='Existing changes require a backup outside source and destination')
+    parser.add_argument('--with-dev', action='store_true', help='Also include docs/ and tests/ for maintaining the skill')
     args = parser.parse_args()
     try:
-        report, code = synchronize(args.source, args.destination, args.apply, args.prune, args.backup_dir)
+        report, code = synchronize(args.source, args.destination, args.apply, args.prune, args.backup_dir, args.with_dev)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return code
     except (OSError, ValueError) as error:

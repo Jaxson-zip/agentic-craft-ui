@@ -1,89 +1,165 @@
-/* Optional presets. Adapt to the existing design system; no global reset. */
+/* Agentic Craft UI 视觉规范 tokens。说明见 references/visual-style.md
+   参考 LobeChat、Cherry Studio、Folo、Innei、flomo 等国内个人项目：浅色为主、近黑主按钮、只有一个强调色、自带中文字体。 */
 :root, [data-theme="light"] {
   color-scheme: light;
-  --bg-page: #F6F8FA;
+  /* 中性色：带一点暖意的石灰色，不用冷蓝灰 */
+  --bg-page: #FAFAF9;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #FAFAFA;
-  --bg-muted: #F2F3F5;
-  --border-subtle: #E5E6EB;
-  --border-strong: #667085;
-  --text-primary: #1D2129;
-  --text-secondary: #4E5969;
-  --text-muted: #626B7C;
-  --brand-primary: #165DFF;
-  --brand-primary-hover: #0E42D2;
-  --brand-primary-active: #0034B5;
+  --bg-card-hover: #F7F7F5;
+  --bg-muted: #F2F2F0;
+  --border-subtle: #E7E5E4;
+  --border-strong: #78716C;
+  --text-primary: #1C1917;
+  --text-secondary: #44403C;
+  --text-muted: #67615C;
+  /* 主按钮用近黑色；颜色留给强调色 */
+  --brand-primary: #1C1917;
+  --brand-primary-hover: #34302C;
+  --brand-primary-active: #000000;
   --on-brand: #FFFFFF;
-  --focus-ring: #165DFF;
-  --control-disabled-bg: #E5E6EB;
-  --control-disabled-text: #596375;
-  --control-selected-bg: #E8EEF9;
-  --control-selected-text: #124FA6;
-  --control-selected-border: #165DFF;
+  /* 强调色：这里是示例值（暖橙）。每个项目按 references/visual-style.md 选色，
+     再用 python scripts/accent.py "#品牌色" 生成这四个值替换 */
+  --accent: #F2610D;
+  --accent-text: #B4400A;
+  --accent-soft: #FFF1E7;
+  --focus-ring: #E5580A;
+  --control-disabled-bg: #EFEEEC;
+  --control-disabled-text: #67615C;
+  --control-selected-bg: #FFF1E7;
+  --control-selected-text: #9A3412;
+  --control-selected-border: #E5580A;
   --field-bg: #FFFFFF;
-  --field-placeholder: #626B7C;
-  --field-border: #667085;
-  --field-invalid-border: #B42318;
-  --badge-success-bg: #E8FFEA;
-  --badge-success-text: #16723A;
-  --badge-warning-bg: #FFF7E8;
-  --badge-warning-text: #925100;
-  --badge-danger-bg: #FFEAE8;
-  --badge-danger-text: #B42318;
-  --badge-neutral-bg: #F2F3F5;
-  --badge-neutral-text: #4E5969;
+  --field-placeholder: #6B6560;
+  --field-border: #8A8580;
+  --field-invalid-border: #CC272E;
+  --badge-success-bg: #DAF7E3;
+  --badge-success-text: #006836;
+  --badge-warning-bg: #FFEFCD;
+  --badge-warning-text: #844B00;
+  --badge-danger-bg: #FFE7E4;
+  --badge-danger-text: #B71824;
+  --badge-neutral-bg: #F2F2F0;
+  --badge-neutral-text: #44403C;
+  /* 金融涨跌（中国习惯红涨绿跌），用不到就忽略 */
+  --rise: #CC272E;
+  --fall: #007E46;
+  /* 标签与图表：同亮度同饱和度，只换色相；不需要就只用强调色 */
+  --data-1: #5E8FED;
+  --data-2: #A17ADF;
+  --data-3: #D4679F;
+  --data-4: #DE6B4F;
+  --data-5: #C18500;
+  --data-6: #00AF96;
+  --hairline: rgba(28, 25, 23, 0.06);
+
+  /* 字体：中文和数字统一用 MiSans（随项目打包，见 assets/fonts），再退到系统中文字体 */
+  --font-sans: "MiSans", -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-num: var(--font-sans);
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 26px;
+  --text-hero: 40px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+  /* 柔和阴影 + 半透明描边，像滴答清单的白卡片 */
+  --shadow-1: 0 0 0 1px var(--hairline), 0 1px 2px rgba(28, 25, 23, 0.04), 0 4px 16px rgba(28, 25, 23, 0.04);
+  --shadow-2: 0 0 0 1px var(--hairline), 0 2px 6px rgba(28, 25, 23, 0.05), 0 12px 32px rgba(28, 25, 23, 0.08);
+  --shadow-3: 0 0 0 1px var(--hairline), 0 8px 24px rgba(28, 25, 23, 0.10), 0 24px 64px rgba(28, 25, 23, 0.14);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --dur-press: 100ms;
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+  --dur-slow: 340ms;
 }
 
+/* 深色：中性深灰（不是海军蓝），主按钮反转成浅色 */
 [data-theme="dark"] {
   color-scheme: dark;
-  color-scheme: dark;
-  --bg-page: #090A0F;
-  --bg-card: #14161F;
-  --bg-card-hover: #1A1D28;
-  --bg-muted: #1D202B;
-  --border-subtle: #323747;
-  --border-strong: #A6ADB9;
-  --text-primary: #F2F3F5;
-  --text-secondary: #B4BDCB;
-  --text-muted: #A6ADB9;
-  --brand-primary: #93C5FD;
-  --brand-primary-hover: #BFDBFE;
-  --brand-primary-active: #60A5FA;
-  --on-brand: #0B1220;
-  --focus-ring: #93C5FD;
-  --control-disabled-bg: #252833;
-  --control-disabled-text: #A6ADB9;
-  --control-selected-bg: #24374D;
-  --control-selected-text: #BFDBFE;
-  --control-selected-border: #93C5FD;
-  --field-bg: #14161F;
-  --field-placeholder: #A6ADB9;
-  --field-border: #A6ADB9;
-  --field-invalid-border: #FDA4AF;
-  --badge-success-bg: #123321;
-  --badge-success-text: #86EFAC;
-  --badge-warning-bg: #392A12;
-  --badge-warning-text: #FCD34D;
-  --badge-danger-bg: #3D1A21;
-  --badge-danger-text: #FDA4AF;
-  --badge-neutral-bg: #252833;
-  --badge-neutral-text: #CBD5E1;
+  --bg-page: #0C0A09;
+  --bg-card: #1C1917;
+  --bg-card-hover: #232120;
+  --bg-muted: #292524;
+  --border-subtle: #33302D;
+  --border-strong: #8A8580;
+  --text-primary: #FAFAF9;
+  --text-secondary: #D6D3D1;
+  --text-muted: #A8A29E;
+  --brand-primary: #FAFAF9;
+  --brand-primary-hover: #E7E5E4;
+  --brand-primary-active: #D6D3D1;
+  --on-brand: #1C1917;
+  --accent: #FB8A3C;
+  --accent-text: #FDBA74;
+  --accent-soft: #3A2416;
+  --focus-ring: #FB923C;
+  --control-disabled-bg: #292524;
+  --control-disabled-text: #A8A29E;
+  --control-selected-bg: #3A2416;
+  --control-selected-text: #FDBA74;
+  --control-selected-border: #FB923C;
+  --field-bg: #1C1917;
+  --field-placeholder: #A8A29E;
+  --field-border: #8A8580;
+  --field-invalid-border: #FF8386;
+  --badge-success-bg: #09311B;
+  --badge-success-text: #7BE9A5;
+  --badge-warning-bg: #3A270B;
+  --badge-warning-text: #FBCD68;
+  --badge-danger-bg: #45181A;
+  --badge-danger-text: #FF9D9E;
+  --badge-neutral-bg: #292524;
+  --badge-neutral-text: #D6D3D1;
+  --rise: #FF645F;
+  --fall: #42CB80;
+  --data-1: #75A9FF;
+  --data-2: #BA93FB;
+  --data-3: #F080B8;
+  --data-4: #FA8467;
+  --data-5: #DC9E12;
+  --data-6: #00C9AE;
+  --hairline: rgba(255, 255, 255, 0.07);
+  --shadow-1: 0 0 0 1px var(--hairline), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 0 0 1px var(--hairline), 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 0 0 1px var(--hairline), 0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
-.craft-surface { background: var(--bg-card); color: var(--text-primary); }
+.craft-surface {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+.craft-num { font-family: var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
 .craft-action {
   background: var(--brand-primary);
   color: var(--on-brand);
   border: 0;
-  border-radius: 8px;
-  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
   min-height: 44px;
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 120ms ease-out;
+  transition: background-color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
-.craft-action:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--brand-primary-hover); }
-.craft-action:active:not(:disabled):not([aria-disabled="true"]) { background: var(--brand-primary-active); }
+.craft-action:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--brand-primary-hover); box-shadow: var(--shadow-1); }
+.craft-action:active:not(:disabled):not([aria-disabled="true"]) { background: var(--brand-primary-active); transform: scale(0.97); }
 .craft-action:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
 .craft-action:disabled, .craft-action[aria-disabled="true"] {
   background: var(--control-disabled-bg);
@@ -96,26 +172,31 @@
   color: var(--control-selected-text);
   box-shadow: inset 0 0 0 1px var(--control-selected-border);
 }
-.craft-action[aria-pressed="true"]:hover:not(:disabled):not([aria-disabled="true"]) {
-  box-shadow: inset 0 0 0 2px var(--control-selected-border);
-}
 .craft-action[aria-busy="true"] {
   background: var(--brand-primary);
   color: var(--on-brand);
   cursor: progress;
 }
+.craft-action--quiet {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+.craft-action--quiet:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--border-subtle); box-shadow: none; }
+.craft-action--quiet:active:not(:disabled):not([aria-disabled="true"]) { background: var(--border-subtle); }
+
 .craft-field {
   background: var(--field-bg);
   color: var(--text-primary);
   border: 1px solid var(--field-border);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
   min-height: 44px;
   font: inherit;
   box-sizing: border-box;
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 .craft-field::placeholder { color: var(--field-placeholder); opacity: 1; }
-.craft-field:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+.craft-field:focus-visible { outline: none; border-color: var(--focus-ring); box-shadow: 0 0 0 3px var(--accent-soft); }
 .craft-field[aria-invalid="true"] { border-color: var(--field-invalid-border); }
 .craft-field:disabled {
   background: var(--control-disabled-bg);
@@ -125,6 +206,8 @@
 }
 .craft-field:disabled::placeholder { color: var(--control-disabled-text); }
 .craft-field[readonly] { background: var(--bg-muted); }
+
 @media (prefers-reduced-motion: reduce) {
-  .craft-action { transition: none; }
+  .craft-action, .craft-field { transition: none; }
+  .craft-action:active:not(:disabled):not([aria-disabled="true"]) { transform: none; }
 }

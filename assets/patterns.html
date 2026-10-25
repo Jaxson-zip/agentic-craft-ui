@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>组件配方 · 照着 flomo 和滴答清单做</title>
+<link rel="stylesheet" href="fonts/misans.css">
+<link rel="stylesheet" href="themes.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-sans); font-size: 14px; line-height: 1.6; color: var(--text-primary); background: var(--bg-page); -webkit-font-smoothing: antialiased; }
+  button, input { font: inherit; color: inherit; }
+  .page { max-width: 1040px; margin: 0 auto; padding: 48px 24px 96px; }
+  .intro h1 { margin: 0; font-size: 26px; font-weight: 600; }
+  .intro p { margin: 6px 0 0; color: var(--text-muted); }
+  section { margin-top: 56px; }
+  section > h2 { margin: 0; font-size: 17px; font-weight: 600; }
+  section > p { margin: 4px 0 16px; color: var(--text-muted); font-size: 13px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .label { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 12px; font-weight: 500; }
+  .label.good { color: var(--badge-success-text); }
+  .label.bad { color: var(--badge-danger-text); }
+  .frame { background: var(--bg-card); border-radius: 16px; box-shadow: var(--shadow-1); padding: 12px; }
+  .frame.bad { opacity: 0.85; }
+
+  /* 1. 扁平分组列表：行不是卡片 */
+  .group-head { display: flex; align-items: center; gap: 6px; padding: 10px 10px 4px; font-size: 13px; font-weight: 600; }
+  .group-head .n { font-weight: 400; color: var(--text-muted); }
+  .group-head svg { width: 12px; height: 12px; color: var(--text-muted); }
+  .row { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 10px; border-radius: 10px; cursor: default; transition: background-color 150ms var(--ease-out); }
+  .row:hover { background: var(--bg-muted); }
+  .row + .row { box-shadow: 0 -1px 0 var(--border-subtle); }
+  .row:hover, .row:hover + .row { box-shadow: none; }
+  .row .main { flex: 1; min-width: 0; }
+  .row .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .s { font-size: 12px; color: var(--text-muted); }
+  .row .meta { flex: none; font-size: 13px; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+  .row .meta.muted { color: var(--text-muted); }
+  .row .num { flex: none; text-align: right; font-variant-numeric: tabular-nums; }
+  .row .num b { font-weight: 500; }
+  .row .num span { display: block; font-size: 12px; color: var(--text-muted); }
+  .check { flex: none; width: 16px; height: 16px; border: 1.5px solid var(--border-strong); border-radius: 5px; }
+
+  .bad-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; margin-bottom: 8px; padding: 12px; border: 1px solid var(--border-subtle); border-radius: 12px; box-shadow: var(--shadow-1); font-size: 13px; }
+  .bad-row .badge { padding: 1px 8px; border-radius: 99px; background: var(--badge-warning-bg); color: var(--badge-warning-text); font-size: 12px; }
+  .bad-row .bar { width: 80px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, #555 60%, var(--bg-muted) 60%); }
+  .bad-row button { border: 1px solid var(--border-subtle); background: var(--bg-card); border-radius: 8px; padding: 2px 8px; font-size: 12px; }
+
+  /* 2. 图标：品牌方块 / emoji */
+  .ico { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-weight: 600; font-size: 15px; color: #fff; }
+  .ico.sm { width: 28px; height: 28px; border-radius: 8px; font-size: 13px; }
+  .ico.emoji { background: var(--bg-muted); font-size: 18px; }
+  .ico.soft { color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+  .icons { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .icons figure { margin: 0; display: grid; justify-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+
+  /* 3. 统计数字：中等字重 + 小灰标签 */
+  .stats { display: flex; gap: 40px; padding: 8px 6px; }
+  .stat b { display: block; font-size: 28px; font-weight: 500; line-height: 1.2; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .stat span { font-size: 12px; color: var(--text-muted); }
+  .hero-num { padding: 8px 6px; }
+  .hero-num .k { font-size: 13px; color: var(--text-muted); }
+  .hero-num .v { display: flex; align-items: baseline; gap: 4px; margin-top: 2px; font-size: 40px; font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .hero-num .v small { font-size: 18px; font-weight: 500; color: var(--text-muted); }
+  .hero-num .v em { font-style: normal; font-size: 15px; font-weight: 400; color: var(--text-muted); margin-left: 4px; }
+  .hero-num .note { margin-top: 6px; font-size: 13px; color: var(--text-secondary); }
+  .hero-num .note b { font-weight: 500; color: var(--accent-text); }
+  .bad-num { padding: 8px 6px; font-size: 52px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; }
+
+  /* 4. 图表：强调色的深浅，不用深灰 */
+  .heat { display: grid; grid-template-columns: repeat(18, 1fr); gap: 4px; padding: 6px; }
+  .heat i { aspect-ratio: 1; border-radius: 3px; background: var(--bg-muted); }
+  .heat i[data-l="1"] { background: color-mix(in srgb, var(--accent) 22%, var(--bg-card)); }
+  .heat i[data-l="2"] { background: color-mix(in srgb, var(--accent) 45%, var(--bg-card)); }
+  .heat i[data-l="3"] { background: color-mix(in srgb, var(--accent) 72%, var(--bg-card)); }
+  .heat i[data-l="4"] { background: var(--accent); }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 120px; padding: 6px 6px 0; }
+  .bars i { flex: 1; border-radius: 6px 6px 3px 3px; background: color-mix(in srgb, var(--accent) 22%, var(--bg-card)); transform-origin: bottom; animation: grow 700ms var(--ease-out) both; animation-delay: calc(var(--k) * 30ms); }
+  .bars i.on { background: var(--accent); }
+  .bars i.zero { background: var(--bg-muted); height: 6px !important; }
+  .axis { display: flex; justify-content: space-between; padding: 6px; font-size: 12px; color: var(--text-muted); }
+  @keyframes grow { from { transform: scaleY(0); } }
+  .bad-bars { display: flex; align-items: flex-end; gap: 14px; height: 120px; padding: 6px; }
+  .bad-bars i { width: 14px; background: #4a4a4a; }
+
+  /* 5. 输入与提示 */
+  .quick { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 10px; background: var(--bg-muted); color: var(--text-muted); cursor: text; transition: background-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out); }
+  .quick:hover { background: var(--border-subtle); }
+  .quick input { flex: 1; border: 0; outline: 0; background: transparent; }
+  .quick:focus-within { background: var(--bg-card); box-shadow: 0 0 0 1px var(--accent), 0 0 0 4px var(--accent-soft); }
+  .hint { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; background: var(--bg-muted); font-size: 13px; color: var(--text-secondary); }
+  .hint a { color: var(--accent-text); text-decoration: none; margin-left: auto; }
+  .bad-hint { padding: 12px 16px; border-radius: 12px; background: #FFE4DC; color: #B4400A; font-size: 13px; }
+
+  /* 6. 侧栏 */
+  .side { width: 220px; display: grid; gap: 2px; }
+  .side .sect { padding: 10px 10px 4px; font-size: 12px; color: var(--text-muted); }
+  .nav { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px; border-radius: 8px; color: var(--text-secondary); }
+  .nav:hover { background: var(--bg-muted); }
+  .nav.on { background: var(--accent-soft); color: var(--accent-text); font-weight: 500; }
+  .nav .e { width: 18px; text-align: center; }
+  .nav .c { margin-left: auto; font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  .rules { margin: 12px 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 13px; }
+  .rules li { margin: 2px 0; }
+  @media (max-width: 760px) { .pair { grid-template-columns: 1fr; } .stats { gap: 24px; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="intro">
+    <h1>组件配方</h1>
+    <p>照着 flomo 和滴答清单的界面拆出来的常用组件。左边照做，右边是 AI 最常做出来的“后台表格”样子，不要这样。</p>
+  </header>
+
+  <section>
+    <h2>1. 列表：扁平分组，行不是卡片</h2>
+    <p>滴答清单的任务列表：一行一件事，右边一个小字的强调色信息；行与行之间只有留白和极细的线，按“今天 / 明天”分组。</p>
+    <div class="pair">
+      <div>
+        <div class="label good">✓ 照做</div>
+        <div class="frame">
+          <div class="group-head"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l3 3 3-3"/></svg>今天 <span class="n">3</span></div>
+          <div class="row"><span class="ico soft" style="--c:#07C160">读</span><div class="main"><div class="t">微信读书：《置身事内》</div><div class="s">读到 62%</div></div><div class="num"><b>45 分钟</b><span>今天</span></div></div>
+          <div class="row"><span class="ico soft" style="--c:#3478F6">☁</span><div class="main"><div class="t">备份照片到网盘</div><div class="s">自动 · 每周</div></div><div class="num"><b>1.2 GB</b><span>09:00</span></div></div>
+          <div class="group-head"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l3 3 3-3"/></svg>本周 <span class="n">2</span></div>
+          <div class="row"><span class="check"></span><div class="main"><div class="t">整理博客草稿</div></div><span class="meta">周四</span></div>
+          <div class="row"><span class="check"></span><div class="main"><div class="t">给作品集加深色模式</div></div><span class="meta muted">周日</span></div>
+        </div>
+        <ul class="rules">
+          <li>行高 44px 左右，悬停时整行变浅灰圆角底</li>
+          <li>左：图标或复选框；中：一行标题 + 最多一行灰色说明；右：一个数字或时间</li>
+          <li>编辑、删除等操作放进悬停菜单、右键或详情页，不在每行摆一排按钮</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label bad">✗ 不要这样</div>
+        <div class="frame bad">
+          <div class="bad-row"><span>整理博客草稿 · 写作 · 高</span><span class="badge">明天</span><span class="bar"></span><button>编辑</button></div>
+          <div class="bad-row"><span>备份照片 · 生活 · 中</span><span class="badge">4 天后</span><span class="bar"></span><button>编辑</button></div>
+          <div class="bad-row"><span>作品集深色模式 · 项目</span><span class="badge">16 天后</span><span class="bar"></span><button>编辑</button></div>
+        </div>
+        <ul class="rules">
+          <li>每行一张带边框阴影的卡片，像后台表格</li>
+          <li>一行塞了徽章、进度条、按钮，信息打架</li>
+          <li>没有图标，整页只有字</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 图标：每个实体都要有一个</h2>
+    <p>滴答的清单前有 emoji，flomo 的标签前有 emoji。有品牌的东西（Netflix、微信读书、GitHub）用品牌色方块，或者真实 logo。</p>
+    <div class="frame icons">
+      <figure><span class="ico" style="background:#E50914">N</span>品牌色实心</figure>
+      <figure><span class="ico soft" style="--c:#E50914">N</span>品牌色浅底</figure>
+      <figure><span class="ico soft" style="--c:#10A37F">✦</span>AI 服务</figure>
+      <figure><span class="ico soft" style="--c:#FB7299">B</span>哔哩哔哩</figure>
+      <figure><span class="ico emoji">🚀</span>emoji 清单</figure>
+      <figure><span class="ico emoji">📚</span>读书</figure>
+      <figure><span class="ico emoji">🏃</span>运动</figure>
+      <figure><span class="ico sm soft" style="--c:var(--accent)">#</span>标签</figure>
+    </div>
+    <ul class="rules">
+      <li>需要真实品牌 logo 时用 npm 包 <code>simple-icons</code>（SVG，CC0；商标仍归品牌所有）或 <code>@lobehub/icons</code>（AI 服务 logo）</li>
+      <li>没有 logo 的用户自建内容：让用户选一个 emoji，或按名称首字 + 一个固定颜色生成</li>
+      <li>浅底版（14% 品牌色底 + 品牌色字）最耐看；实心版只在需要强识别时用</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. 数字：中等字重，配小灰字</h2>
+    <p>flomo 的统计：数字不加粗到发黑，下面一行小灰字说明。首屏大数字用 600，旁边留一句人话。</p>
+    <div class="pair">
+      <div>
+        <div class="label good">✓ 照做</div>
+        <div class="frame">
+          <div class="hero-num"><div class="k">本月专注</div><div class="v">42.5<em>小时</em></div><div class="note">比上月多 <b>6.2 小时</b>，最长一次是周三晚上</div></div>
+          <div class="stats"><div class="stat"><b>2659</b><span>笔记</span></div><div class="stat"><b>723</b><span>标签</span></div><div class="stat"><b>449</b><span>天</span></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="label bad">✗ 不要这样</div>
+        <div class="frame bad"><div class="bad-num">42.5h</div><div style="padding:0 6px 8px;font-size:12px;color:var(--text-muted)">共 38 次 · 平均 67 分钟 · 较上月 +17% · 最长 2.4h</div></div>
+        <ul class="rules"><li>800 粗体 + 很紧的字距，中文环境里显得笨重</li><li>下面一串灰色小字挤在一起，没有重点</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. 图表：用强调色的深浅</h2>
+    <p>flomo 的热力图只用一个绿色的五档深浅。柱状图同理：普通的柱子用浅色，只有“今天”或“最高”用实色；没有数据的日子是一条矮灰线。</p>
+    <div class="pair">
+      <div>
+        <div class="label good">✓ 照做</div>
+        <div class="frame">
+          <div class="heat" id="heat"></div>
+          <div class="bars" id="bars"></div>
+          <div class="axis"><span>今天</span><span>下周</span><span>30 天后</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="label bad">✗ 不要这样</div>
+        <div class="frame bad"><div class="bad-bars"><i style="height:90%"></i><i style="height:40%"></i><i style="height:75%"></i><i style="height:60%"></i><i style="height:95%"></i></div></div>
+        <ul class="rules"><li>深灰色的细柱，像默认图表库</li><li>柱子之间间距不均，没有轴和重点</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. 输入与提示</h2>
+    <p>滴答的“添加任务”是一条浅灰圆角输入框，点进去才出现强调色描边。提示条用中性浅灰，不用大块彩色。</p>
+    <div class="pair">
+      <div>
+        <div class="label good">✓ 照做</div>
+        <div class="frame" style="display:grid;gap:12px">
+          <label class="quick"><span>＋</span><input placeholder="添加任务，回车保存"></label>
+          <div class="hint">正在看示例数据 <a href="#">清空示例</a></div>
+        </div>
+      </div>
+      <div>
+        <div class="label bad">✗ 不要这样</div>
+        <div class="frame bad"><div class="bad-hint">正在看示例数据，金额和日期都是编的。清空示例</div></div>
+        <ul class="rules"><li>大块粉橙色底，比主内容还抢眼</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. 侧栏：emoji + 数量，选中用浅强调色底</h2>
+    <div class="frame" style="width:fit-content">
+      <div class="side">
+        <div class="nav on"><span class="e">📥</span>收集箱<span class="c">10</span></div>
+        <div class="nav"><span class="e">📅</span>今天<span class="c">4</span></div>
+        <div class="sect">清单</div>
+        <div class="nav"><span class="e">🚀</span>九月计划<span class="c">13</span></div>
+        <div class="nav"><span class="e">💼</span>认真工作<span class="c">44</span></div>
+        <div class="nav"><span class="e">🏡</span>生活备忘<span class="c">7</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  // 热力图：五档深浅
+  const heat = document.getElementById('heat');
+  const levels = [0,1,0,2,3,1,0,0,2,4,3,1,0,1,2,0,3,2, 1,0,0,1,3,4,2,1,0,2,1,0,0,3,2,1,4,2, 0,2,1,0,1,2,3,0,1,0,2,4,3,1,0,0,1,2];
+  heat.innerHTML = levels.map((l) => `<i data-l="${l}"></i>`).join('');
+  // 30 天扣费柱：没有扣费的日子是一条矮灰线
+  const amounts = [5, 0, 0, 2, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 4, 0, 0, 0, 2, 0, 0, 1, 0, 0, 3, 0, 0, 0, 2, 0];
+  const max = Math.max(...amounts);
+  document.getElementById('bars').innerHTML = amounts.map((a, k) =>
+    `<i class="${a ? (k === 0 ? 'on' : '') : 'zero'}" style="height:${a ? Math.max(12, a / max * 100) : 0}%;--k:${k}" title="${a ? a + ' 件' : '无'}"></i>`).join('');
+</script>
+</body>
+</html>
