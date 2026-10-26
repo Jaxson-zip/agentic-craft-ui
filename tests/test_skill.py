@@ -31,6 +31,16 @@ class SkillTests(unittest.TestCase):
                 with self.subTest(file=md.name, link=target):
                     self.assertTrue((md.parent / target).exists())
 
+    def test_evals_are_well_formed(self):
+        import json
+        evals = json.loads((ROOT / 'evals' / 'evals.json').read_text(encoding='utf-8'))
+        self.assertGreaterEqual(len(evals), 3)
+        for case in evals:
+            with self.subTest(case=case.get('name')):
+                self.assertIn('agentic-craft-ui', case['skills'])
+                self.assertTrue(case['query'].strip())
+                self.assertGreaterEqual(len(case['expected_behavior']), 3)
+
     def test_patterns_page_is_self_contained(self):
         html = (ROOT / 'assets' / 'patterns.html').read_text(encoding='utf-8')
         self.assertNotRegex(html, r'<link[^>]+stylesheet')

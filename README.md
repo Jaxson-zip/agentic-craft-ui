@@ -22,7 +22,8 @@ agentic-craft-ui/
 │   └── delivery.md       # 复用、改已有项目、验证、汇报、上线合规
 ├── assets/
 │   └── patterns.html     # 组件配方，浏览器直接打开
-└── tests/                # 只检查体积上限和链接，不随 skill 运行
+├── evals/evals.json      # 三个评估场景（订阅看板、AI 写作助手、改已有账本），改 skill 后用它们对比
+└── tests/                # 只检查体积上限、链接和评估格式，不随 skill 运行
 ```
 
 Agent 运行时最多读三个 Markdown 文件，合计约 15KB。`tests/test_skill.py` 为每个文件设了体积上限，超出就会失败，防止规则越写越长。
@@ -40,6 +41,10 @@ git clone https://github.com/Jaxson-zip/agentic-craft-ui.git ~/.claude/skills/ag
 - 其他宿主：按它的 Agent Skills 文档放置完整目录。
 
 更新时在该目录里 `git pull`。
+
+## 怎么写出来的
+
+结构按 Anthropic 的 [Skill 编写最佳实践](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)：SKILL.md 只做导航和清单，细节放在一层深的参考文件里，长文件带目录。界面部分借鉴了官方 [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) skill 的做法：从产品主题出发写设计计划，再对照“AI 痕迹”清单自审；在此之上补充了中文排版、国内环境和国内产品的布局参考。
 
 ## 开发
 

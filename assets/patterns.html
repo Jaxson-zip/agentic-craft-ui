@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>组件配方 · 照着 flomo 和滴答清单做</title>
+<title>组件配方：照着 flomo 和滴答清单做</title>
 <style>
   /* 示例用的几个颜色变量；真实项目换成组件库主题，强调色按 references/ui.md 选。
      装了 MiSans 会自动用上，没装就退回系统中文字体。 */
@@ -133,7 +133,7 @@
         <div class="frame">
           <div class="group-head"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l3 3 3-3"/></svg>今天 <span class="n">3</span></div>
           <div class="row"><span class="ico soft" style="--c:#07C160">读</span><div class="main"><div class="t">微信读书：《置身事内》</div><div class="s">读到 62%</div></div><div class="num"><b>45 分钟</b><span>今天</span></div></div>
-          <div class="row"><span class="ico soft" style="--c:#3478F6">☁</span><div class="main"><div class="t">备份照片到网盘</div><div class="s">自动 · 每周</div></div><div class="num"><b>1.2 GB</b><span>09:00</span></div></div>
+          <div class="row"><span class="ico soft" style="--c:#3478F6">☁</span><div class="main"><div class="t">备份照片到网盘</div><div class="s">每周自动备份</div></div><div class="num"><b>1.2 GB</b><span>09:00</span></div></div>
           <div class="group-head"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l3 3 3-3"/></svg>本周 <span class="n">2</span></div>
           <div class="row"><span class="check"></span><div class="main"><div class="t">整理博客草稿</div></div><span class="meta">周四</span></div>
           <div class="row"><span class="check"></span><div class="main"><div class="t">给作品集加深色模式</div></div><span class="meta muted">周日</span></div>
@@ -162,7 +162,7 @@
 
   <section>
     <h2>2. 图标：每个实体都要有一个</h2>
-    <p>滴答的清单前有 emoji，flomo 的标签前有 emoji。有品牌的东西（Netflix、微信读书、GitHub）用品牌色方块，或者真实 logo。</p>
+    <p>有品牌的东西（Netflix、微信读书、GitHub）用真实 logo 或品牌色方块。用户自己建的清单和标签，可以像滴答、flomo 那样让用户挑一个 emoji；但按钮、导航这些功能图标用一套线性图标，不用 emoji。</p>
     <div class="frame icons">
       <figure><span class="ico" style="background:#E50914">N</span>品牌色实心</figure>
       <figure><span class="ico soft" style="--c:#E50914">N</span>品牌色浅底</figure>
@@ -239,7 +239,7 @@
   </section>
 
   <section>
-    <h2>6. 侧栏：emoji + 数量，选中用浅强调色底</h2>
+    <h2>6. 侧栏：用户清单带自选 emoji 和数量，选中用浅强调色底</h2>
     <div class="frame" style="width:fit-content">
       <div class="side">
         <div class="nav on"><span class="e">📥</span>收集箱<span class="c">10</span></div>

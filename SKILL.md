@@ -1,45 +1,48 @@
 ---
 name: agentic-craft-ui
-description: "Use when building or changing a product UI or full-stack feature — web app, WeChat mini program or mobile app, especially for Chinese users — where the result must look polished, reuse existing solutions instead of rebuilding them, and be verified and reported honestly. 适用于面向中国用户的网页、小程序和 App：新产品、功能实现和已有项目改造。"
+description: "Builds and changes product UIs and full-stack features for Chinese users — web apps, WeChat mini programs and mobile apps — with a design grounded in the product's subject, existing solutions reused instead of rebuilt, and results verified and reported honestly. Use when creating a new app or page, adding a feature to an existing project, or polishing an interface that looks generic. 适用于面向中国用户的网页、小程序和 App：新产品、功能实现、已有项目改造和界面打磨。"
 ---
 
 # Agentic Craft UI
 
-做出**好看、好用、真能跑**的产品，并如实说明做到了哪一步。用户的要求和项目已有的规则永远优先。
+做出**好看、好用、真能跑**的产品，并如实说明做到了哪一步。用户的要求和项目已有的设计系统永远优先。
 
 ## 先判断任务
 
-| 任务 | 怎么做 | 读什么 |
-| --- | --- | --- |
-| 新产品 | 先查有没有现成产品或底座能直接用；选组件库，按项目定颜色和布局；连通一条能点的主路径 | [ui.md](references/ui.md)、[delivery.md](references/delivery.md) |
-| 已有项目加功能 | 沿用现有栈、组件和风格，只改需要改的 | [delivery.md](references/delivery.md)；改界面再读 ui.md |
-| 纯后端、CLI | 先定输入输出和错误，再实现 | [delivery.md](references/delivery.md) |
-| 小修复、文案 | 直接改，直接验证 | 不用读 |
+- **小修复、文案**：直接改，直接验证，不用读参考。
+- **已有项目加功能**：沿用现有栈、组件和风格，读 [delivery.md](references/delivery.md)；改界面再读 [ui.md](references/ui.md)。
+- **新产品或新页面**：按下面的流程走，两篇参考都读。
+- **纯后端、CLI**：先定输入输出和错误，再实现，读 [delivery.md](references/delivery.md)。
 
-需求真不清楚时，只问会改变结果的一两个问题，并附上你建议的默认答案；其余按默认推进。
+## 新产品流程
 
-## 做好看
+把这份清单复制到回复里，逐项勾掉：
 
-- 已有设计系统就照用。没有时用成熟组件库（shadcn/ui、Ant Design、Arco 等）打底，并**换掉它的默认主题**。
-- 颜色、布局都按项目定：先看项目领域和核心动作，再从 [ui.md](references/ui.md) 的参考表里选；不要每个项目都套同一套。
-- 中文界面字体随项目打包（`npm install misans` 等），不用 Google Fonts。
-- 列表是扁平分组，不是一行一张卡片；每个实体都有图标；全站只有一个强调色。写之前看一眼 [组件配方](assets/patterns.html)。
-- 交付前截一张桌面图、一张手机图，按 ui.md 末尾的自查看一遍。
+```text
+- [ ] 1. 理解主题：这是什么产品、给谁用、用户最常做的一件事是什么
+- [ ] 2. 查复用：有没有现成产品或库能直接用；选组件库
+- [ ] 3. 写设计计划：4–6 个具名颜色、字体、ASCII 线框、一个记忆点
+- [ ] 4. 对照 ui.md 的「AI 痕迹」自审计划，雷同的部分改掉并说明
+- [ ] 5. 实现，连通一条真实主路径
+- [ ] 6. 截桌面和手机两张图，自评后再改一轮
+- [ ] 7. 按下面的格式汇报
+```
 
-## 做对
+第 3、4 步的细节、中文排版和国内环境见 [ui.md](references/ui.md)；复用、验证和上线合规见 [delivery.md](references/delivery.md)。列表、图标、数字、图表的写法可以打开 [组件配方](assets/patterns.html) 对照。
 
-1. **先复用**：认证、支付、复杂控件、图表、编辑器先用现成的；自己写要说出现成方案哪里不合适。
-2. **读到影响范围为止**：改之前读相关的实现、调用方和测试。
-3. **跑通真实路径**：修复先复现再改；功能至少走通一条真实路径，失败时不丢用户输入。
-4. **只改需要改的**：保留别人的改动，沿用项目工具，不顺手重构无关代码。
+## 始终遵守
 
-## 如实汇报
+- **先复用**：认证、支付、复杂表格、编辑器、图表先用现成的；自己写要说出现成方案哪里不合适。
+- **只改需要改的**：保留别人的改动，沿用项目工具，不顺手重构无关代码。
+- **跑通真实路径**：修复先复现再改；功能至少走通一条真实路径，失败时不丢用户输入。
+- **大陆能用**：不依赖 Google Fonts、Firebase 这类大陆打不开的服务；中文字体随项目打包。
 
-短而直接，用户先看到结论：
+## 汇报格式
 
 ```markdown
 **结果**：<做成了什么，能不能用；没做成就直说>
 **改动**：<文件和一句话>
+**设计**：<一句话：主题、配色、布局为什么这样选>（只在做了界面时写）
 **没验证的**：<具体项和原因>
 ```
 

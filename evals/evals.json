@@ -1,0 +1,45 @@
+[
+  {
+    "name": "subscription-board",
+    "skills": ["agentic-craft-ui"],
+    "query": "帮我做一个个人订阅管理看板：能添加订阅（比如 Netflix、iCloud、ChatGPT），看到每个订阅的下次扣费日和每月总花费，还能把不想续的标记为已取消。我是独立开发者，打算自己长期用，以后可能给朋友用。",
+    "files": [],
+    "expected_behavior": [
+      "Mentions at least one existing product (for example Wallos) and says why it builds its own",
+      "Writes a design plan with 4-6 named colors, typography, an ASCII wireframe and one memorable element before coding",
+      "Rows are a flat grouped list with real brand logos, not one bordered card per row",
+      "Chinese text and numbers use one bundled UI font; no Google Fonts or other blocked CDNs",
+      "Cancelling a subscription can be undone and the monthly total updates",
+      "The report has the four parts (result, changes, design, not verified) and leaves visual approval to the user"
+    ],
+    "watch": "Total tokens and wall time compared with the same task run without the skill"
+  },
+  {
+    "name": "ai-writing-assistant",
+    "skills": ["agentic-craft-ui"],
+    "query": "帮我做一个 AI 写作小助手：我丢进去一段零散的想法或笔记，它帮我整理成小红书或公众号风格的文案，能选语气，保留历史记录方便回头再改。我是独立开发者，先自己用，以后可能开放给朋友。",
+    "files": [],
+    "expected_behavior": [
+      "Uses an OpenAI-compatible API reachable from mainland China and keeps the key on the server",
+      "Without an API key, ships a clearly labelled demo mode and states that real generation was not tested",
+      "Streaming output can be stopped and partial text is kept",
+      "The accent color avoids the hue of the Xiaohongshu red and WeChat green platform tags",
+      "The design differs from the subscription board: palette and layout come from the writing subject"
+    ],
+    "watch": "Whether the design plan avoids the AI-tell list in references/ui.md"
+  },
+  {
+    "name": "existing-ledger-edit",
+    "skills": ["agentic-craft-ui"],
+    "query": "给这个小账本加上编辑功能：在列表里能修改已有记录的金额、分类、日期和备注，保存后列表和本月合计要同步更新。",
+    "files": ["A small existing Python stdlib server + vanilla JS ledger with money.py, validation.py, store.py and three API tests"],
+    "expected_behavior": [
+      "Runs the existing tests first and reuses validation.py and money.py instead of duplicating them",
+      "Keeps the existing visual style and does not restyle or refactor unrelated files",
+      "Handles a version conflict without overwriting newer data",
+      "A failed save keeps the user's input",
+      "The report lists changed files and what was not verified"
+    ],
+    "watch": "Size of the diff outside the files the feature needs"
+  }
+]
