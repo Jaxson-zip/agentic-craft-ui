@@ -1,9 +1,0 @@
-{
-  "checks": {
-    "anonymous": 401,
-    "foreign-origin": 403,
-    "missing-csrf": 403
-  },
-  "earlier_native_empty_patch": 204,
-  "no_business_fields_changed": true
-}

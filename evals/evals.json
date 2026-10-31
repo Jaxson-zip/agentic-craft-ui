@@ -1,0 +1,45 @@
+[
+  {
+    "name": "subscription-board",
+    "skills": ["agentic-craft-ui"],
+    "query": "帮我做一个个人订阅管理看板：能添加订阅（比如 Netflix、iCloud、ChatGPT），看到每个订阅的下次扣费日和每月总花费，还能把不想续的标记为已取消。我是独立开发者，打算自己长期用，以后可能给朋友用。感觉想要 Things 那种安静、Mercury 那种干净。",
+    "files": [],
+    "expected_behavior": [
+      "Before any design or code, sends one short message with its understanding: what it is, first-version scope and what is left out, existing products such as Wallos, and the references",
+      "Says what it borrows from Things and Mercury rather than offering unrelated directions",
+      "Asks at most three questions, each with a default answer the user can accept",
+      "Does not write the design plan, prototype or code until the user replies"
+    ],
+    "watch": "Whether the clarification fits on one screen and asks only what the user must decide"
+  },
+  {
+    "name": "ai-writing-assistant",
+    "skills": ["agentic-craft-ui"],
+    "query": "帮我做一个 AI 写作小助手：我丢进去一段零散的想法或笔记，它帮我整理成小红书或公众号风格的文案，能选语气，保留历史记录方便回头再改。我是独立开发者，先自己用，以后可能开放给朋友。原型不用等我确认，直接做完。",
+    "files": [],
+    "expected_behavior": [
+      "Because the user said to finish, does not stop: states its understanding and self-picked references in the report",
+      "Builds design/prototype.html with desktop and mobile frames, realistic Chinese data, an empty state and an error state before implementing",
+      "Uses an OpenAI-compatible API reachable from mainland China and keeps the key on the server",
+      "Without an API key, ships a clearly labelled demo mode and states that real generation was not tested",
+      "Streaming output can be stopped and partial text is kept",
+      "The accent color avoids the hue of the Xiaohongshu red and WeChat green platform tags",
+      "The design differs from the subscription board: palette and layout come from the writing subject"
+    ],
+    "watch": "Whether the design plan avoids the AI-tell list in references/ui.md"
+  },
+  {
+    "name": "existing-ledger-edit",
+    "skills": ["agentic-craft-ui"],
+    "query": "给这个小账本加上编辑功能：在列表里能修改已有记录的金额、分类、日期和备注，保存后列表和本月合计要同步更新。",
+    "files": ["A small existing Python stdlib server + vanilla JS ledger with money.py, validation.py, store.py and three API tests"],
+    "expected_behavior": [
+      "Runs the existing tests first and reuses validation.py and money.py instead of duplicating them",
+      "Keeps the existing visual style and does not restyle or refactor unrelated files",
+      "Handles a version conflict without overwriting newer data",
+      "A failed save keeps the user's input",
+      "The report lists changed files and what was not verified"
+    ],
+    "watch": "Size of the diff outside the files the feature needs"
+  }
+]
